@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Berber | Tarzın Adresi</title>
     
-    <!-- Fontlar -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
     
-    <!-- Pannellum 360° Viewer Kütüphanesi -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 
@@ -18,37 +16,48 @@
             --dark: #0a0a0a;
         }
         
-        /* Temel Ayarlar */
         html { scroll-behavior: smooth; }
         body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-color: var(--dark); color: #fff; overflow-x: hidden; }
         
-        /* Navigasyon (Referans Site İle Birebir Aynı - Şeffaf ve Emojisiz) */
+        /* Navigasyon */
         nav { position: fixed; top: 0; width: 100%; background: transparent; padding: 30px 0; z-index: 1000; text-align: center; transition: 0.4s; }
         nav.scrolled { background: rgba(10, 10, 10, 0.95); padding: 20px 0; border-bottom: 1px solid rgba(197, 160, 89, 0.2); }
         nav a { color: #fff; text-decoration: none; margin: 0 20px; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; transition: color 0.3s; }
         nav a:hover { color: var(--gold); }
 
-        /* Ana Alan (Hero) & Video Arka Plan */
+        /* Ana Alan */
         .hero { position: relative; width: 100%; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: hidden; }
         .video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.25) grayscale(0.5); }
         
-        /* Yazılar */
+        /* Animasyonlu Neon Yazılar */
         .text-wrapper { position: relative; width: 100%; height: 60px; z-index: 10; display: flex; justify-content: center; align-items: center; margin: 10px 0; }
-        .anim-text { position: absolute; font-size: 2.8rem; font-weight: 900; color: #fff; opacity: 0; transition: 0.5s ease-in-out; text-transform: uppercase; letter-spacing: 4px; width: 100%; }
+        .anim-text { position: absolute; font-size: 3rem; font-weight: 900; color: #fff; opacity: 0; transition: 0.5s ease-in-out; text-transform: uppercase; letter-spacing: 2px; width: 100%; }
         .anim-text.active { opacity: 1; }
-        .gold-txt { color: var(--gold); }
-
-        /* Yeni Modern Butonlar (Referans Site Standardı) */
-        .btn-container { display: flex; flex-direction: column; gap: 20px; z-index: 100; margin: 40px 0; align-items: center; }
-        .top-btns { display: flex; gap: 20px; justify-content: center; }
-        .my-btn { display: flex; align-items: center; justify-content: center; width: 220px; height: 60px; color: #fff; font-weight: 600; text-decoration: none; transition: 0.3s ease; letter-spacing: 1.5px; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.3); backdrop-filter: blur(5px); font-size: 0.9rem; }
-        .my-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); }
         
-        .btn-randevu { width: 460px; height: 65px; border: 1px solid var(--gold); background: transparent; color: var(--gold); font-size: 1.1rem; }
-        .btn-randevu:hover { background: var(--gold); color: #000; box-shadow: 0 0 20px rgba(197, 160, 89, 0.4); }
+        /* Neon Renk Sınıfları */
+        .neon-blue { color: #00f3ff; text-shadow: 0 0 10px rgba(0, 243, 255, 0.6), 0 0 20px rgba(0, 243, 255, 0.4); }
+        .neon-pink { color: #ff00ea; text-shadow: 0 0 10px rgba(255, 0, 234, 0.6), 0 0 20px rgba(255, 0, 234, 0.4); }
+        .neon-yellow { color: #ffea00; text-shadow: 0 0 10px rgba(255, 234, 0, 0.6), 0 0 20px rgba(255, 234, 0, 0.4); }
+
+        /* Oval Buton Tasarımı (Simetrik) */
+        .btn-container { display: flex; flex-direction: column; gap: 20px; z-index: 100; margin: 50px auto; align-items: center; width: 100%; max-width: 550px; }
+        .top-btns { display: flex; gap: 20px; justify-content: space-between; width: 100%; }
+        
+        .btn-call, .btn-wp { flex: 1; height: 85px; border-radius: 45px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 800; font-size: 1.3rem; text-decoration: none; color: #fff; transition: transform 0.2s; border: none; }
+        .btn-call:hover, .btn-wp:hover, .btn-randevu:hover { transform: scale(1.03); }
+        
+        .btn-call { background: linear-gradient(135deg, #ff9900, #ff5500); box-shadow: 0 10px 20px rgba(255, 153, 0, 0.2); }
+        .btn-wp { background: linear-gradient(135deg, #00e676, #128c7e); box-shadow: 0 10px 20px rgba(0, 230, 118, 0.2); }
+        
+        .btn-text-main { display: flex; align-items: center; }
+        .btn-icon { font-size: 1.4rem; margin-right: 8px; }
+        .btn-sub { font-size: 0.8rem; font-weight: 600; opacity: 0.9; margin-top: 4px; letter-spacing: 0.5px; }
+
+        .btn-randevu { width: 100%; height: 70px; border-radius: 40px; background: transparent; border: 2px solid var(--gold); color: var(--gold); font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; justify-content: center; text-decoration: none; text-transform: uppercase; transition: 0.3s; letter-spacing: 2px; }
+        .btn-randevu:hover { background: var(--gold); color: #000; box-shadow: 0 0 25px rgba(197, 160, 89, 0.3); }
 
         /* Bölüm Standartları */
-        .section { padding: 120px 20px 80px; max-width: 1000px; margin: 0 auto; min-height: auto; }
+        .section { padding: 120px 20px 80px; max-width: 1000px; margin: 0 auto; }
         .title { text-align: center; color: var(--gold); font-size: 2.2rem; text-transform: uppercase; margin-bottom: 50px; letter-spacing: 3px; }
 
         /* Fiyat Listesi */
@@ -63,22 +72,23 @@
         .gallery-video { width: 100%; height: 350px; object-fit: cover; opacity: 0.7; transition: 0.3s; background: #000; }
         .gallery-video:hover { opacity: 1; transform: scale(1.02); }
 
-        /* 360 ve Harita Kapsayıcıları */
+        /* 360 Kapsayıcı */
         .pano-container { width: 100%; height: 500px; background: #111; margin-bottom: 50px; border: 1px solid #333; }
-        .map-container iframe { width: 100%; height: 400px; border: 0; filter: invert(90%) hue-rotate(180deg) brightness(0.8) contrast(1.2); } /* Haritayı karanlık moda çevirir */
+        
+        /* Harita Kapsayıcı */
+        .map-container iframe { width: 100%; height: 400px; border: 0; filter: invert(90%) hue-rotate(180deg) brightness(0.8) contrast(1.2); }
 
-        /* İletişim Kutusu */
         .contact-box { text-align: center; padding: 40px 0; }
         .contact-box p { font-size: 1.1rem; color: #aaa; line-height: 1.8; margin-bottom: 15px; }
 
         /* Mobil Uyumluluk */
         @media (max-width: 768px) {
-            .anim-text { font-size: 1.8rem; letter-spacing: 2px; }
-            .top-btns { flex-direction: column; gap: 10px; }
-            .my-btn { width: 100%; }
-            .btn-randevu { width: 100%; }
+            .anim-text { font-size: 1.6rem; letter-spacing: 1px; }
+            .top-btns { flex-direction: column; gap: 15px; }
+            .btn-call, .btn-wp { width: 100%; flex: none; height: 75px; }
+            .btn-container { max-width: 90%; }
             nav a { display: block; margin: 15px 0; font-size: 0.9rem; }
-            nav { background: rgba(10, 10, 10, 0.95); padding: 15px 0; } /* Mobilde menü arka planı hep koyu olmalı */
+            nav { background: rgba(10, 10, 10, 0.95); padding: 15px 0; }
             .price-list { grid-template-columns: 1fr; }
         }
     </style>
@@ -99,16 +109,23 @@
         </video>
         
         <div class="text-wrapper">
-            <div class="anim-text g1 active"><span class="gold-txt">Betondan</span> Perde</div>
-            <div class="anim-text g1">Sıradışı Atmosfer</div>
+            <div class="anim-text g1 active">KLASİK DEĞİL, <span class="neon-blue">İZ BIRAKAN</span></div>
+            <div class="anim-text g1">TARZINI <span class="neon-pink">YENİDEN YARAT</span></div>
+            <div class="anim-text g1">KUSURSUZ ÇİZGİLER, <span class="neon-yellow">NET DURUŞ</span></div>
         </div>
 
         <div class="btn-container">
             <div class="top-btns">
-                <a href="tel:05000000000" class="my-btn">Hemen Ara</a>
-                <a href="https://wa.me/905000000000" class="my-btn">Whatsapp</a>
+                <a href="tel:05345916444" class="btn-call">
+                    <span class="btn-text-main"><span class="btn-icon">📞</span> HEMEN ARA</span>
+                    <span class="btn-sub">Tıkla ve Çağır</span>
+                </a>
+                <a href="https://wa.me/905345916444" class="btn-wp">
+                    <span class="btn-text-main"><span class="btn-icon">💬</span> WHATSAPP</span>
+                    <span class="btn-sub">Konum Gönder</span>
+                </a>
             </div>
-            <a href="#iletisim" class="btn-randevu my-btn">Randevu Al</a>
+            <a href="#iletisim" class="btn-randevu">📅 RANDEVU AL</a>
         </div>
     </header>
 
@@ -142,13 +159,11 @@
         </div>
     </section>
 
-    <!-- 360 Derece Gezinti Alanı -->
     <section id="sanal-tur" class="section" style="padding-bottom: 20px;">
         <h2 class="title">360° Dükkan Turu</h2>
         <div id="panorama" class="pano-container"></div>
     </section>
 
-    <!-- İletişim ve Harita Alanı -->
     <section id="iletisim" class="section" style="padding-top: 50px;">
         <h2 class="title">Bize Ulaşın</h2>
         <div class="contact-box">
@@ -156,14 +171,12 @@
             <p style="color: var(--gold); letter-spacing: 1px;">Instagram: @berberyunusilgen</p>
         </div>
         
-        <!-- Google Haritalar (Karanlık Mod Filtreli) -->
         <div class="map-container">
             <iframe src="https://maps.google.com/maps?q=İzzetiye,%20Atmalı%20Sok.%20No:38,%2044210%20Malatya%20Merkez/Malatya&t=&z=16&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </section>
 
     <script>
-        // Metin Animasyonu Döngüsü
         function loop(s, t) {
             const el = document.querySelectorAll(s); let i = 0;
             if(el.length > 0) {
@@ -176,7 +189,6 @@
         }
         loop('.g1', 3000); 
 
-        // Aşağı Kaydırınca Menüye Arka Plan Ekleme Efekti
         window.addEventListener('scroll', function() {
             var navbar = document.getElementById('navbar');
             if (window.scrollY > 50) {
@@ -186,12 +198,13 @@
             }
         });
 
-        // Pannellum 360 Kurulumu (Gezegen Efektli)
+        // 360 Kurulumu: Test edilebilmesi için çalışan bir referans linki eklendi.
+        // Kendi fotoğrafını çektiğinde aşağıdaki URL kısmını "assets/360-foto.jpg" olarak değiştirmelisin.
         pannellum.viewer('panorama', {
             "type": "equirectangular",
-            "panorama": "assets/360-foto.jpg", /* 360 Fotoğrafın ismini buraya gireceksin */
+            "panorama": "https://pannellum.org/images/alma.jpg", 
             "autoLoad": true,
-            "autoRotate": -2, /* Otomatik yavaşça döner */
+            "autoRotate": -2,
             "showControls": true
         });
     </script>
