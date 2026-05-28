@@ -4,118 +4,116 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Berber | Tarzın Adresi</title>
+    
+    <!-- Fontlar -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Pannellum 360° Viewer Kütüphanesi -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+
     <style>
         :root {
             --gold: #c5a059;
             --dark: #0a0a0a;
-            --glass: rgba(10, 10, 10, 0.85);
         }
         
         /* Temel Ayarlar */
         html { scroll-behavior: smooth; }
         body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-color: var(--dark); color: #fff; overflow-x: hidden; }
         
-        /* Navigasyon (Üst Menü) */
-        nav { position: fixed; top: 0; width: 100%; background: var(--glass); backdrop-filter: blur(10px); padding: 15px 0; z-index: 1000; text-align: center; border-bottom: 1px solid var(--gold); }
-        nav a { color: #fff; text-decoration: none; margin: 0 15px; font-weight: 700; font-size: 1rem; text-transform: uppercase; transition: color 0.3s; }
+        /* Navigasyon (Referans Site İle Birebir Aynı - Şeffaf ve Emojisiz) */
+        nav { position: fixed; top: 0; width: 100%; background: transparent; padding: 30px 0; z-index: 1000; text-align: center; transition: 0.4s; }
+        nav.scrolled { background: rgba(10, 10, 10, 0.95); padding: 20px 0; border-bottom: 1px solid rgba(197, 160, 89, 0.2); }
+        nav a { color: #fff; text-decoration: none; margin: 0 20px; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; transition: color 0.3s; }
         nav a:hover { color: var(--gold); }
 
-        /* Ana Alan (Hero) & Arka Plan Videosu */
+        /* Ana Alan (Hero) & Video Arka Plan */
         .hero { position: relative; width: 100%; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: hidden; }
-        .video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.3) grayscale(0.5); }
+        .video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.25) grayscale(0.5); }
         
-        /* Animasyonlu Yazılar */
+        /* Yazılar */
         .text-wrapper { position: relative; width: 100%; height: 60px; z-index: 10; display: flex; justify-content: center; align-items: center; margin: 10px 0; }
-        .anim-text { position: absolute; font-size: 2.5rem; font-weight: 900; color: #fff; text-shadow: 0 5px 15px #000; opacity: 0; transition: 0.5s ease-in-out; text-transform: uppercase; letter-spacing: 2px; width: 100%; }
+        .anim-text { position: absolute; font-size: 2.8rem; font-weight: 900; color: #fff; opacity: 0; transition: 0.5s ease-in-out; text-transform: uppercase; letter-spacing: 4px; width: 100%; }
         .anim-text.active { opacity: 1; }
         .gold-txt { color: var(--gold); }
 
-        /* Buton Grubu */
-        .btn-container { display: flex; flex-direction: column; gap: 15px; z-index: 100; margin: 40px 0; align-items: center; }
-        .top-btns { display: flex; gap: 15px; justify-content: center; }
-        .my-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 200px; height: 75px; color: #fff; font-weight: 900; text-decoration: none; transition: 0.3s ease; border-radius: 3px; text-transform: uppercase; border: 2px solid transparent; position: relative; overflow: hidden; }
+        /* Yeni Modern Butonlar (Referans Site Standardı) */
+        .btn-container { display: flex; flex-direction: column; gap: 20px; z-index: 100; margin: 40px 0; align-items: center; }
+        .top-btns { display: flex; gap: 20px; justify-content: center; }
+        .my-btn { display: flex; align-items: center; justify-content: center; width: 220px; height: 60px; color: #fff; font-weight: 600; text-decoration: none; transition: 0.3s ease; letter-spacing: 1.5px; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.3); backdrop-filter: blur(5px); font-size: 0.9rem; }
+        .my-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); }
         
-        .btn-call { background: #1a1a1a; border-color: #333; }
-        .btn-wp { background: #128C7E; }
-        
-        /* Randevu Butonu - Dalga (Ripple) Efekti */
-        .btn-randevu { width: 415px; height: 80px; background: transparent; border: 2px solid var(--gold); color: var(--gold); font-size: 1.2rem; box-shadow: 0 0 15px rgba(197, 160, 89, 0.1); }
-        .btn-randevu::before { content: ''; position: absolute; top: 50%; left: 50%; width: 0; height: 0; background: var(--gold); border-radius: 50%; transform: translate(-50%, -50%); transition: width 0.6s ease, height 0.6s ease; z-index: -1; }
-        .btn-randevu:hover::before { width: 500px; height: 500px; }
-        .btn-randevu:hover { color: #000; box-shadow: 0 0 30px rgba(197, 160, 89, 0.6); }
+        .btn-randevu { width: 460px; height: 65px; border: 1px solid var(--gold); background: transparent; color: var(--gold); font-size: 1.1rem; }
+        .btn-randevu:hover { background: var(--gold); color: #000; box-shadow: 0 0 20px rgba(197, 160, 89, 0.4); }
 
-        /* İçerik Bölümleri (Sayfa İçi Kaydırma Standartları) */
-        .section { padding: 120px 20px 80px; max-width: 1000px; margin: 0 auto; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; }
-        .title { text-align: center; color: var(--gold); font-size: 2.5rem; text-transform: uppercase; margin-bottom: 50px; border-bottom: 1px solid #333; padding-bottom: 15px; }
+        /* Bölüm Standartları */
+        .section { padding: 120px 20px 80px; max-width: 1000px; margin: 0 auto; min-height: auto; }
+        .title { text-align: center; color: var(--gold); font-size: 2.2rem; text-transform: uppercase; margin-bottom: 50px; letter-spacing: 3px; }
 
         /* Fiyat Listesi */
         .price-list { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .price-item { display: flex; justify-content: space-between; padding: 15px 20px; background: #141414; border-left: 3px solid var(--gold); border-radius: 4px; transition: transform 0.2s; }
-        .price-item:hover { transform: translateX(5px); background: #1a1a1a; }
-        .price-item span.servis { font-weight: 600; font-size: 1.1rem; }
+        .price-item { display: flex; justify-content: space-between; padding: 20px; background: transparent; border-bottom: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
+        .price-item:hover { border-bottom-color: var(--gold); padding-left: 10px; }
+        .price-item span.servis { font-weight: 400; font-size: 1.1rem; color: #ddd; }
         .price-item span.fiyat { color: var(--gold); font-weight: bold; font-size: 1.2rem; }
 
-        /* Video Galeri Grid */
+        /* Galeri Grid */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
-        .gallery-video { width: 100%; height: 350px; object-fit: cover; border-radius: 5px; opacity: 0.8; transition: 0.3s; background: #000; }
+        .gallery-video { width: 100%; height: 350px; object-fit: cover; opacity: 0.7; transition: 0.3s; background: #000; }
         .gallery-video:hover { opacity: 1; transform: scale(1.02); }
 
+        /* 360 ve Harita Kapsayıcıları */
+        .pano-container { width: 100%; height: 500px; background: #111; margin-bottom: 50px; border: 1px solid #333; }
+        .map-container iframe { width: 100%; height: 400px; border: 0; filter: invert(90%) hue-rotate(180deg) brightness(0.8) contrast(1.2); } /* Haritayı karanlık moda çevirir */
+
         /* İletişim Kutusu */
-        .contact-box { background: #141414; padding: 50px; text-align: center; border-radius: 5px; border: 1px solid #222; }
-        .contact-box p { font-size: 1.2rem; color: #ccc; line-height: 1.8; margin-bottom: 20px; }
+        .contact-box { text-align: center; padding: 40px 0; }
+        .contact-box p { font-size: 1.1rem; color: #aaa; line-height: 1.8; margin-bottom: 15px; }
 
         /* Mobil Uyumluluk */
         @media (max-width: 768px) {
-            .anim-text { font-size: 1.5rem; }
-            .top-btns { flex-direction: column; }
-            .btn-randevu { width: 200px; height: 75px; font-size: 1rem; }
-            nav a { display: block; margin: 10px 0; font-size: 0.9rem; }
+            .anim-text { font-size: 1.8rem; letter-spacing: 2px; }
+            .top-btns { flex-direction: column; gap: 10px; }
+            .my-btn { width: 100%; }
+            .btn-randevu { width: 100%; }
+            nav a { display: block; margin: 15px 0; font-size: 0.9rem; }
+            nav { background: rgba(10, 10, 10, 0.95); padding: 15px 0; } /* Mobilde menü arka planı hep koyu olmalı */
             .price-list { grid-template-columns: 1fr; }
-            .gallery-video { height: 250px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Üst Menü -->
-    <nav>
-        <a href="#anasayfa">🏠 Anasayfa</a>
-        <a href="#fiyatlar">✂️ Fiyatlar</a>
-        <a href="#galeri">📸 Galeri</a>
-        <a href="#iletisim">📞 İletişim</a>
+    <nav id="navbar">
+        <a href="#anasayfa">Anasayfa</a>
+        <a href="#fiyatlar">Fiyat Listesi</a>
+        <a href="#galeri">Galeri</a>
+        <a href="#sanal-tur">360° Gezinti</a>
+        <a href="#iletisim">İletişim</a>
     </nav>
 
-    <!-- Giriş Bölümü -->
     <header id="anasayfa" class="hero">
         <video autoplay muted loop playsinline class="video-bg">
             <source src="assets/arkaplan-video.mp4" type="video/mp4">
         </video>
         
         <div class="text-wrapper">
-            <div class="anim-text g1 active">Kimsenin Yapmadığını <span class="gold-txt">Yap</span></div>
-            <div class="anim-text g1">Ustalıkla Şekillenen <span class="gold-txt">Tarz</span></div>
-            <div class="anim-text g1"><span class="gold-txt">Betondan</span> Perde</div>
+            <div class="anim-text g1 active"><span class="gold-txt">Betondan</span> Perde</div>
+            <div class="anim-text g1">Sıradışı Atmosfer</div>
         </div>
 
         <div class="btn-container">
             <div class="top-btns">
-                <a href="tel:05000000000" class="my-btn btn-call">📞 HEMEN ARA <small style="font-size: 10px; margin-top: 5px;">Tıkla ve Çağır</small></a>
-                <a href="https://wa.me/905000000000" class="my-btn btn-wp">💬 WHATSAPP <small style="font-size: 10px; margin-top: 5px;">Konum Gönder</small></a>
+                <a href="tel:05000000000" class="my-btn">Hemen Ara</a>
+                <a href="https://wa.me/905000000000" class="my-btn">Whatsapp</a>
             </div>
-            <a href="#iletisim" class="my-btn btn-randevu">📅 RANDEVU AL</a>
-        </div>
-
-        <div class="text-wrapper">
-            <div class="anim-text g2 active">VIP Saç & Sakal</div>
-            <div class="anim-text g2">Premium Bakım</div>
-            <div class="anim-text g2">Sıradışı Atmosfer</div>
+            <a href="#iletisim" class="btn-randevu my-btn">Randevu Al</a>
         </div>
     </header>
 
-    <!-- Fiyat Listesi -->
     <section id="fiyatlar" class="section">
-        <h2 class="title">Fiyat Listesi</h2>
+        <h2 class="title">Hizmetlerimiz</h2>
         <ul class="price-list">
             <li class="price-item"><span class="servis">Saç Traşı</span> <span class="fiyat">250 TL</span></li>
             <li class="price-item"><span class="servis">Saç Traşı + Yıkama</span> <span class="fiyat">300 TL</span></li>
@@ -134,44 +132,38 @@
         </ul>
     </section>
 
-    <!-- Galeri (MP4 Videolar) -->
     <section id="galeri" class="section">
         <h2 class="title">Çalışmalarımız</h2>
         <div class="gallery-grid">
-            <!-- 1. Video -->
-            <video autoplay muted loop playsinline class="gallery-video">
-                <source src="assets/gif1.mp4" type="video/mp4">
-            </video>
-            <!-- 2. Video -->
-            <video autoplay muted loop playsinline class="gallery-video">
-                <source src="assets/gif.mp4" type="video/mp4">
-            </video>
-            <!-- 3. Video -->
-            <video autoplay muted loop playsinline class="gallery-video">
-                <source src="assets/gif1.mp4" type="video/mp4">
-            </video>
-            <!-- 4. Video -->
-            <video autoplay muted loop playsinline class="gallery-video">
-                <source src="assets/gif.mp4" type="video/mp4">
-            </video>
+            <video autoplay muted loop playsinline class="gallery-video"><source src="assets/gif1.mp4" type="video/mp4"></video>
+            <video autoplay muted loop playsinline class="gallery-video"><source src="assets/gif.mp4" type="video/mp4"></video>
+            <video autoplay muted loop playsinline class="gallery-video"><source src="assets/gif1.mp4" type="video/mp4"></video>
+            <video autoplay muted loop playsinline class="gallery-video"><source src="assets/gif.mp4" type="video/mp4"></video>
         </div>
     </section>
 
-    <!-- İletişim & Randevu -->
-    <section id="iletisim" class="section">
-        <h2 class="title">Siz İsteyin, Biz Yapalım</h2>
+    <!-- 360 Derece Gezinti Alanı -->
+    <section id="sanal-tur" class="section" style="padding-bottom: 20px;">
+        <h2 class="title">360° Dükkan Turu</h2>
+        <div id="panorama" class="pano-container"></div>
+    </section>
+
+    <!-- İletişim ve Harita Alanı -->
+    <section id="iletisim" class="section" style="padding-top: 50px;">
+        <h2 class="title">Bize Ulaşın</h2>
         <div class="contact-box">
-            <p><strong>Kaliteli Hizmet, Mükemmel Sonuç.</strong></p>
-            <p>Adres ve konum detayları için WhatsApp üzerinden iletişime geçebilir veya doğrudan randevu oluşturmak için bizi arayabilirsiniz.</p>
-            <p style="color: var(--gold); font-weight: bold;">Instagram / Facebook: @berberyunusilgen</p>
-            <div style="margin-top: 30px;">
-                <a href="tel:05000000000" class="my-btn btn-randevu" style="display:inline-flex; width: auto; padding: 0 40px;">Hemen Randevu Al</a>
-            </div>
+            <p><strong>Adres:</strong> İzzetiye, Atmalı Sok. No:38, 44210 Malatya Merkez / Malatya</p>
+            <p style="color: var(--gold); letter-spacing: 1px;">Instagram: @berberyunusilgen</p>
+        </div>
+        
+        <!-- Google Haritalar (Karanlık Mod Filtreli) -->
+        <div class="map-container">
+            <iframe src="https://maps.google.com/maps?q=İzzetiye,%20Atmalı%20Sok.%20No:38,%2044210%20Malatya%20Merkez/Malatya&t=&z=16&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </section>
 
-    <!-- Animasyon Scripti -->
     <script>
+        // Metin Animasyonu Döngüsü
         function loop(s, t) {
             const el = document.querySelectorAll(s); let i = 0;
             if(el.length > 0) {
@@ -182,8 +174,26 @@
                 }, t);
             }
         }
-        loop('.g1', 2500); 
-        loop('.g2', 2500);
+        loop('.g1', 3000); 
+
+        // Aşağı Kaydırınca Menüye Arka Plan Ekleme Efekti
+        window.addEventListener('scroll', function() {
+            var navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Pannellum 360 Kurulumu (Gezegen Efektli)
+        pannellum.viewer('panorama', {
+            "type": "equirectangular",
+            "panorama": "assets/360-foto.jpg", /* 360 Fotoğrafın ismini buraya gireceksin */
+            "autoLoad": true,
+            "autoRotate": -2, /* Otomatik yavaşça döner */
+            "showControls": true
+        });
     </script>
 </body>
 </html>
