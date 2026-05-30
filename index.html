@@ -139,14 +139,18 @@
         z-index: 20;
     }
 
-    .video-bg-blur { 
-        position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-        object-fit: cover; filter: blur(25px); opacity: 0.4; z-index: -2; 
-    }
-    
     .video-bg { 
-        position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-        object-fit: contain; z-index: -1; 
+        position: absolute; 
+        top: 0; 
+        left: 50%; 
+        transform: translateX(-50%); 
+        width: 100%; 
+        max-width: 1000px; 
+        height: 100%; 
+        object-fit: cover; 
+        z-index: -1; 
+        border-left: 2px solid rgba(255,255,255,0.05); 
+        border-right: 2px solid rgba(255,255,255,0.05);
     }
     
     .anim-container {
@@ -252,7 +256,7 @@
 
     .gallery-grid { 
         display: grid; 
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+        grid-template-columns: repeat(3, 1fr); 
         gap: 20px; 
     }
     .gallery-video { 
@@ -303,6 +307,7 @@
         color: #888;
         font-size: 0.9rem;
         box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+        margin-top: auto;
     }
     footer p { margin: 5px 0; }
     footer span { color: var(--gold); font-weight: 600; }
@@ -338,6 +343,7 @@
         background-repeat: no-repeat; background-position: right 15px top 50%; background-size: 12px auto;
     }
     .modal-content select:focus, .modal-content input:focus { border-color: var(--gold); background: rgba(0, 0, 0, 0.8); box-shadow: 0 0 15px rgba(197, 160, 89, 0.3); }
+    .modal-content select option[disabled] { color: #555; background-color: #111; font-style: italic; }
     
     .modal-submit-btn {
         background: rgba(0, 230, 118, 0.2); color: #00e676; border: 1px solid #00e676;
@@ -415,6 +421,7 @@
         .mobile-only { display: inline-block !important; }
         .barber-pole-container { display: none; }
         .price-list { margin: 0; }
+        .gallery-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 768px) {
@@ -473,9 +480,6 @@
 
 <header id="anasayfa" class="hero">
     
-    <video autoplay muted loop playsinline class="video-bg-blur">
-        <source src="assets/arkaplan-video.webm" type="video/webm">
-    </video>
     <video autoplay muted loop playsinline class="video-bg">
         <source src="assets/arkaplan-video.webm" type="video/webm">
     </video>
@@ -595,7 +599,7 @@
         </div>
 
         <label>Adınız Soyadınız:</label>
-        <input type="text" id="r-isim" placeholder="Örn: Ahmet Yılmaz" oninput="this.value = this.value.replace(/[0-9]/g, '')">
+        <input type="text" id="r-isim" placeholder="Örn: Ahmet Yılmaz" maxlength="50">
 
         <label>Telefon Numaranız:</label>
         <input type="tel" id="r-telefon" placeholder="Örn: 053X XXX XX XX" maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
@@ -619,7 +623,7 @@
         </select>
         
         <label>Tarih Seçin:</label>
-        <input type="date" id="r-tarih" onclick="this.showPicker()">
+        <input type="date" id="r-tarih">
         
         <label>Saat Seçin:</label>
         <select id="r-saat">
@@ -640,11 +644,13 @@
             <option value="22:00">22:00</option>
         </select>
         
-        <button onclick="gonderWhatsapp()" class="modal-submit-btn">Onayla ve Randevu Al</button>
+        <button onclick="randevuOlustur()" class="modal-submit-btn">Onayla ve Randevu Al</button>
     </div>
 </div>
 
 <script>
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyi4G993ruzT7Ex8zm1jJNnJEHet1VJR4gJ0ipvlgNbYJXrGhvGG9T_JCoVNV8-MYvU/exec";
+
     document.addEventListener("DOMContentLoaded", function() {
         const tarihInput = document.getElementById('r-tarih');
         const bugun = new Date();
@@ -652,6 +658,41 @@
         const mm = String(bugun.getMonth() + 1).padStart(2, '0');
         const dd = String(bugun.getDate()).padStart(2, '0');
         tarihInput.min = `${yyyy}-${mm}-${dd}`;
+        
+        tarihInput.addEventListener('change', function() {
+            const secilenTarih = this.value;
+            const saatSelect = document.getElementById('r-saat');
+            
+            for (let i = 1; i < saatSelect.options.length; i++) {
+                saatSelect.options[i].disabled = false;
+                saatSelect.options[i].text = saatSelect.options[i].value;
+            }
+
+            if(!secilenTarih) return;
+
+            saatSelect.options[0].text = "Dolu saatler kontrol ediliyor...";
+            
+            const url = WEB_APP_URL + "?islem=saatSorgula&tarih=" + secilenTarih;
+
+            fetch(url)
+            .then(response => response.json())
+            .then(doluSaatler => {
+                saatSelect.options[0].text = "Saat Seçiniz";
+                
+                if(doluSaatler && doluSaatler.length > 0) {
+                    for (let i = 1; i < saatSelect.options.length; i++) {
+                        if (doluSaatler.includes(saatSelect.options[i].value)) {
+                            saatSelect.options[i].disabled = true;
+                            saatSelect.options[i].text = saatSelect.options[i].value + " (DOLU)";
+                        }
+                    }
+                }
+            })
+            .catch(error => {
+                console.error("Saat kontrolü yapılamadı:", error);
+                saatSelect.options[0].text = "Saat Seçiniz";
+            });
+        });
         
         const subCall = document.getElementById('sub-call');
         const subWp = document.getElementById('sub-wp');
@@ -743,7 +784,7 @@
     }
     function closeModal() { document.getElementById('randevuModal').classList.remove('show'); }
 
-    function gonderWhatsapp() {
+    function randevuOlustur() {
         const isim = document.getElementById('r-isim').value.trim();
         const telefon = document.getElementById('r-telefon').value.trim();
         const hizmet = document.getElementById('r-hizmet').value;
@@ -753,14 +794,21 @@
 
         errorBanner.style.display = 'none';
 
-        if (!isim || !telefon || !tarih || !saat) { 
-            alert('Lütfen ilerlemek için İsim, Telefon, Tarih ve Saat alanlarını eksiksiz doldurunuz.'); 
-            return; 
-        }
-        
-        if(telefon.length < 10) {
-            alert('Lütfen geçerli bir telefon numarası giriniz.');
+        const isimRegex = /^[a-zA-ZğüşıöçĞÜŞİÖÇ\s]{3,50}$/;
+        if (!isimRegex.test(isim)) {
+            alert('Lütfen geçerli bir Ad Soyad giriniz (Sadece harf kullanınız ve en az 3 karakter giriniz).');
             return;
+        }
+
+        const telefonRegex = /^05[0-9]{9}$/;
+        if (!telefonRegex.test(telefon)) {
+            alert('Lütfen geçerli bir telefon numarası giriniz (Örn: 05321234567). Numara "05" ile başlamalı ve 11 haneli olmalıdır.');
+            return;
+        }
+
+        if (!tarih || !saat) { 
+            alert('Lütfen Tarih ve Saat alanlarını eksiksiz doldurunuz.'); 
+            return; 
         }
 
         const btn = document.querySelector('.modal-submit-btn');
@@ -769,8 +817,6 @@
         btn.disabled = true;
 
         const data = { isim: isim, telefon: telefon, hizmet: hizmet, tarih: tarih, saat: saat };
-        
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzoHDzI8DFt-RIQZXB9rqTS42XrZZtnzP1eNejJn5jngFSPRLnIrV67TSJRrP-wJbhl/exec";
 
         fetch(WEB_APP_URL, {
             method: 'POST',
@@ -785,15 +831,12 @@
                 errorBanner.style.display = 'flex';
                 btn.innerText = originalText;
                 btn.disabled = false;
+                
+                setTimeout(() => {
+                    errorBanner.style.display = 'none';
+                }, 12000);
+                
             } else {
-                const dateObj = new Date(tarih);
-                const formatliTarih = dateObj.toLocaleDateString('tr-TR');
-                const mesaj = `Merhaba, ben ${isim}. ${formatliTarih} - ${saat} için ${hizmet} randevusu oluşturmak istiyorum. İletişim numaram: ${telefon}. Siteniz üzerinden takvimden saatimi ayırttım.`;
-                const wpNumara = "905345916444"; 
-                const wpUrl = `https://wa.me/${wpNumara}?text=${encodeURIComponent(mesaj)}`;
-                
-                window.open(wpUrl, '_blank');
-                
                 closeModal();
                 
                 const successToast = document.getElementById('success-notification');
@@ -801,7 +844,7 @@
                 
                 setTimeout(() => {
                     successToast.classList.remove('show');
-                }, 5000);
+                }, 12000);
                 
                 btn.innerText = originalText;
                 btn.disabled = false;
@@ -810,6 +853,8 @@
                 document.getElementById('r-telefon').value = '';
                 document.getElementById('r-tarih').value = '';
                 document.getElementById('r-saat').value = '';
+                
+                document.getElementById('r-tarih').dispatchEvent(new Event('change'));
             }
         })
         .catch(error => {
