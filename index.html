@@ -25,6 +25,13 @@
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 5px; border: 2px solid var(--dark); }
         ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
         
+        /* Sürekli Değişen Neon Sıcaklık Efekti */
+        @keyframes neon-glow {
+            0% { box-shadow: 0 0 5px rgba(197, 160, 89, 0.5), inset 0 0 5px rgba(197, 160, 89, 0.2); border-color: rgba(197, 160, 89, 0.3); }
+            50% { box-shadow: 0 0 25px var(--gold), inset 0 0 10px var(--gold); border-color: var(--gold); }
+            100% { box-shadow: 0 0 5px rgba(197, 160, 89, 0.5), inset 0 0 5px rgba(197, 160, 89, 0.2); border-color: rgba(197, 160, 89, 0.3); }
+        }
+
         /* Üst Çubuk */
         .top-status-bar {
             position: fixed; top: 0; left: 50%; transform: translateX(-50%);
@@ -61,7 +68,9 @@
         nav a:hover { color: var(--gold); }
 
         .hero { position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: hidden; padding-top: 100px; box-sizing: border-box; }
-        .video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.25) grayscale(0.5); }
+        
+        /* Video Karartma Tamamen Kaldırıldı (Orijinal Canlı Görüntü) */
+        .video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: none; }
         
         .text-wrapper { position: relative; width: 100%; height: auto; min-height: 60px; z-index: 10; display: flex; justify-content: center; align-items: center; margin-bottom: 40px; }
         .anim-text { position: absolute; font-size: 3rem; font-weight: 900; color: #fff; opacity: 0; transition: 0.5s ease-in-out; text-transform: uppercase; letter-spacing: 2px; width: 100%; }
@@ -71,16 +80,16 @@
         .neon-pink { color: #ff00ea; text-shadow: 0 0 10px rgba(255, 0, 234, 0.6); }
         .neon-yellow { color: #ffea00; text-shadow: 0 0 10px rgba(255, 234, 0, 0.6); }
 
-        /* Buton Konteyner ve Izgara Yapısı */
-        .btn-container { z-index: 100; width: 100%; max-width: 650px; padding: 0 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px; }
-        .top-btns { display: flex; gap: 20px; width: 100%; }
+        /* Dış Kalıp Çizgilerine Göre Kompakt Buton Yerleşimi */
+        .btn-container { z-index: 100; width: 90%; max-width: 500px; box-sizing: border-box; display: flex; flex-direction: column; gap: 15px; margin: 0 auto; }
+        .top-btns { display: flex; gap: 15px; width: 100%; }
         
-        /* Tam Saydam Glassmorphism Buton Tasarımı */
+        /* Tam Saydam Glassmorphism + Neon Animasyonlu Buton Tasarımı */
         .glass-btn {
-            background: rgba(25, 25, 25, 0.2);
+            background: rgba(25, 25, 25, 0.1);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(197, 160, 89, 0.3);
             border-radius: 20px;
             color: #fff;
             display: flex;
@@ -88,29 +97,19 @@
             align-items: center;
             justify-content: center;
             flex: 1;
-            height: 90px;
+            height: 85px;
             text-decoration: none;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
             cursor: pointer;
+            animation: neon-glow 3s infinite alternate;
         }
 
-        /* Özel Neon Hover Efektleri */
-        .glass-btn.call { border-bottom: 2px solid rgba(255, 153, 0, 0.4); }
-        .glass-btn.call:hover { border-color: #ff9900; background: rgba(255, 153, 0, 0.15); box-shadow: 0 0 25px rgba(255, 153, 0, 0.4); transform: translateY(-3px); }
+        .glass-btn:hover { background: rgba(197, 160, 89, 0.15); transform: scale(1.02); }
+        .glass-btn.randevu { width: 100%; flex: none; color: #fff; }
         
-        .glass-btn.wp { border-bottom: 2px solid rgba(0, 230, 118, 0.4); }
-        .glass-btn.wp:hover { border-color: #00e676; background: rgba(0, 230, 118, 0.15); box-shadow: 0 0 25px rgba(0, 230, 118, 0.4); transform: translateY(-3px); }
-        
-        /* Randevu Butonu Düzeltmeleri */
-        .glass-btn.randevu { width: 100%; flex: none; border-bottom: 2px solid rgba(197, 160, 89, 0.4); background: rgba(197, 160, 89, 0.25); color: #fff; }
-        .glass-btn.randevu:hover { border-color: var(--gold); background: rgba(197, 160, 89, 0.4); box-shadow: 0 0 25px rgba(197, 160, 89, 0.4); transform: translateY(-3px); color: #fff; }
-        
-        .btn-text-main { display: flex; align-items: center; font-size: 1.25rem; letter-spacing: 1px; font-weight: 800; }
-        .btn-icon { font-size: 1.5rem; margin-right: 8px; }
-        
-        /* Dinamik Alt Metin Geçişi İçin Transition */
-        .btn-sub { font-size: 0.8rem; font-weight: 400; opacity: 0.8; margin-top: 5px; letter-spacing: 0.5px; transition: opacity 0.4s ease-in-out; }
+        .btn-text-main { display: flex; align-items: center; font-size: 1.15rem; letter-spacing: 1px; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+        .btn-icon { font-size: 1.4rem; margin-right: 8px; }
+        .btn-sub { font-size: 0.75rem; font-weight: 600; opacity: 0.9; margin-top: 5px; letter-spacing: 0.5px; transition: opacity 0.4s ease-in-out; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
 
         .section { padding: 100px 20px 60px; max-width: 1000px; margin: 0 auto; }
         .title { text-align: center; color: var(--gold); font-size: 2.2rem; text-transform: uppercase; margin-bottom: 40px; letter-spacing: 3px; }
@@ -131,7 +130,7 @@
         .contact-box { text-align: center; padding: 30px 0; }
         .contact-box p { font-size: 1.1rem; color: #aaa; line-height: 1.8; margin-bottom: 10px; }
 
-        /* Modal Yapısı (max-height ve overflow-y eklendi) */
+        /* Modal Yapısı */
         .modal {
             display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%;
             background-color: rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px); 
@@ -146,7 +145,7 @@
             width: 90%; max-width: 450px; display: flex; flex-direction: column; gap: 18px;
             box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8); position: relative;
             transform: translateY(-20px); transition: transform 0.3s; box-sizing: border-box;
-            max-height: 90vh; overflow-y: auto; /* Mobil taşma çözümü */
+            max-height: 90vh; overflow-y: auto;
         }
         .modal.show .modal-content { transform: translateY(0); }
         .close-btn { position: absolute; top: 15px; right: 20px; color: #aaa; font-size: 28px; cursor: pointer; transition: 0.2s; }
@@ -154,18 +153,14 @@
         .modal-content h3 { color: var(--gold); text-align: center; margin: 0 0 10px 0; font-size: 1.6rem; letter-spacing: 2px; font-weight: 900; }
         .modal-content label { font-size: 0.85rem; color: #ccc; font-weight: 600; margin-bottom: -10px; letter-spacing: 0.5px; }
         
-        /* Select Appearance Düzeltmesi (iOS Safari İçin) */
         .modal-content select, .modal-content input {
             padding: 14px 16px; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; border-radius: 12px;
             font-family: 'Montserrat', sans-serif; font-size: 1.05rem; outline: none; transition: all 0.3s; cursor: pointer;
-            -webkit-appearance: none; appearance: none; /* Apple varsayılan stili iptali */
+            -webkit-appearance: none; appearance: none;
         }
-        /* Select ikonunu (ok) manuel geri ekleme */
         .modal-content select {
             background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23c5a059%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-            background-repeat: no-repeat;
-            background-position: right 15px top 50%;
-            background-size: 12px auto;
+            background-repeat: no-repeat; background-position: right 15px top 50%; background-size: 12px auto;
         }
         .modal-content select:focus, .modal-content input:focus { border-color: var(--gold); background: rgba(0, 0, 0, 0.7); box-shadow: 0 0 15px rgba(197, 160, 89, 0.2); }
         
@@ -178,14 +173,16 @@
 
         /* RESPONSIVE TASARIM (PC, Tablet, Mobil) */
         
-        /* Tablet (992px altı) */
         @media (max-width: 992px) {
             .anim-text { font-size: 2.2rem; }
             .hero { padding-top: 120px; }
+            /* Tablet modunda da İletişim ve 360 Gizleniyor */
+            .hide-on-mobile { display: none !important; }
         }
 
-        /* Mobil (768px altı) */
         @media (max-width: 768px) {
+            .hide-on-mobile { display: none !important; }
+            
             .top-status-bar { width: 90%; font-size: 0.7rem; padding: 6px 15px; border-radius: 12px; top: 10px; border-top: 1px solid rgba(197, 160, 89, 0.3); }
             
             nav { top: 55px; padding: 12px 0; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
@@ -195,13 +192,13 @@
             .anim-text { font-size: 1.8rem; letter-spacing: 1px; }
             .text-wrapper { min-height: 40px; margin-bottom: 30px; }
             
-            .btn-container { max-width: 100%; gap: 15px; padding: 0 25px; }
-            .top-btns { flex-direction: column; gap: 15px; } 
+            .btn-container { max-width: 100%; gap: 12px; padding: 0 20px; }
+            .top-btns { flex-direction: column; gap: 12px; } 
             
-            .glass-btn { height: 80px; border-radius: 15px; }
-            .btn-text-main { font-size: 1.15rem; }
-            .btn-icon { font-size: 1.3rem; }
-            .btn-sub { font-size: 0.75rem; }
+            .glass-btn { height: 75px; border-radius: 15px; }
+            .btn-text-main { font-size: 1rem; }
+            .btn-icon { font-size: 1.2rem; }
+            .btn-sub { font-size: 0.7rem; }
 
             .section { padding: 80px 20px 40px; }
             .title { font-size: 1.8rem; margin-bottom: 30px; }
@@ -223,8 +220,8 @@
         <a href="#anasayfa">Anasayfa</a>
         <a href="#fiyatlar">Fiyat Listesi</a>
         <a href="#galeri">Galeri</a>
-        <a href="#sanal-tur">360° Gezinti</a>
-        <a href="#iletisim">İletişim</a>
+        <a href="#sanal-tur" class="hide-on-mobile">360° Gezinti</a>
+        <a href="#iletisim" class="hide-on-mobile">İletişim</a>
     </nav>
 
     <header id="anasayfa" class="hero">
@@ -240,11 +237,11 @@
 
         <div class="btn-container">
             <div class="top-btns">
-                <a href="tel:05345916444" class="glass-btn call">
+                <a href="tel:05345916444" class="glass-btn">
                     <span class="btn-text-main"><span class="btn-icon">📞</span> HEMEN ARA</span>
                     <span class="btn-sub" id="sub-call">Saç Stilini Konuşalım</span>
                 </a>
-                <a href="https://wa.me/905345916444" class="glass-btn wp">
+                <a href="https://wa.me/905345916444" class="glass-btn">
                     <span class="btn-text-main"><span class="btn-icon">💬</span> WHATSAPP</span>
                     <span class="btn-sub" id="sub-wp">Berberine Mesaj Yaz</span>
                 </a>
@@ -329,8 +326,8 @@
             <label>Tarih Seçin:</label>
             <input type="date" id="r-tarih" onclick="this.showPicker()">
             
-            <label>Saat Seçin (09:00 - 22:00):</label>
-            <input type="time" id="r-saat" onclick="this.showPicker()">
+            <label>Saat Seçin (1 Saatlik Periyotlar):</label>
+            <input type="time" id="r-saat" step="3600" onclick="this.showPicker()">
             
             <button onclick="gonderWhatsapp()" class="modal-submit-btn">Onayla ve WhatsApp'a Git</button>
         </div>
@@ -338,7 +335,6 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Tarih Sınırlandırması
             const tarihInput = document.getElementById('r-tarih');
             const bugun = new Date();
             const yyyy = bugun.getFullYear();
@@ -346,14 +342,12 @@
             const dd = String(bugun.getDate()).padStart(2, '0');
             tarihInput.min = `${yyyy}-${mm}-${dd}`;
             
-            // Dinamik Alt Yazı Değişimi
             const subCall = document.getElementById('sub-call');
             const subWp = document.getElementById('sub-wp');
             const subRandevu = document.getElementById('sub-randevu');
             let toggleState = false;
 
             setInterval(() => {
-                // Opacity sıfırla (Fade Out)
                 subCall.style.opacity = '0';
                 subWp.style.opacity = '0';
                 subRandevu.style.opacity = '0';
@@ -369,14 +363,12 @@
                         subWp.innerText = "Berberine Mesaj Yaz";
                         subRandevu.innerText = "Koltuğunu Ayırt";
                     }
-                    // Opacity geri getir (Fade In)
-                    subCall.style.opacity = '0.8';
-                    subWp.style.opacity = '0.8';
-                    subRandevu.style.opacity = '0.8';
-                }, 400); // 400ms bekleme
-            }, 3000); // Her 3 saniyede bir
+                    subCall.style.opacity = '0.9';
+                    subWp.style.opacity = '0.9';
+                    subRandevu.style.opacity = '0.9';
+                }, 400); 
+            }, 3000); 
 
-            // Otomatik Tam Ekran
             document.body.addEventListener('click', function ilkTiklamaTamEkran() {
                 let doc = window.document;
                 let docEl = doc.documentElement;
@@ -393,7 +385,6 @@
             }, { once: true });
         });
 
-        // Başlık Animasyon Döngüsü
         function loop(s, t) {
             const el = document.querySelectorAll(s); let i = 0;
             if(el.length > 0) {
@@ -406,7 +397,6 @@
         }
         loop('.g1', 3000); 
 
-        // Navigasyon Kaydırma
         window.addEventListener('scroll', function() {
             var navbar = document.getElementById('navbar');
             if (window.scrollY > 50) {
@@ -416,7 +406,6 @@
             }
         });
 
-        // Pannellum 360 Tur
         pannellum.viewer('panorama', {
             "type": "equirectangular",
             "panorama": "https://pannellum.org/images/alma.jpg", 
@@ -425,7 +414,6 @@
             "showControls": true
         });
 
-        // Modal Fonksiyonları
         function openModal() {
             const modal = document.getElementById('randevuModal');
             modal.classList.add('show');
@@ -443,6 +431,13 @@
 
             if (!tarih || !saat) {
                 alert('Lütfen ilerlemek için tarih ve saat seçiniz.');
+                return;
+            }
+
+            // 1 Saat Kuralı Dakika Kontrolü (Sadece Tam Saatler)
+            const dakika = saat.split(':')[1];
+            if (dakika !== "00") {
+                alert('Lütfen tam saat seçin (Örn: 09:00, 10:00). Randevu aralıklarımız 1 saat sürmektedir.');
                 return;
             }
 
