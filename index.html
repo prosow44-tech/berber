@@ -25,31 +25,45 @@
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 5px; border: 2px solid var(--dark); }
         ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
         
-        /* Sürekli Değişen Neon Sıcaklık Efekti */
+        /* Neon Sıcaklık Efekti - Tüm Butonlar İçin Ortak */
         @keyframes neon-glow {
-            0% { box-shadow: 0 0 5px rgba(197, 160, 89, 0.5), inset 0 0 5px rgba(197, 160, 89, 0.2); border-color: rgba(197, 160, 89, 0.3); }
-            50% { box-shadow: 0 0 25px var(--gold), inset 0 0 10px var(--gold); border-color: var(--gold); }
-            100% { box-shadow: 0 0 5px rgba(197, 160, 89, 0.5), inset 0 0 5px rgba(197, 160, 89, 0.2); border-color: rgba(197, 160, 89, 0.3); }
+            0% { box-shadow: 0 0 5px rgba(197, 160, 89, 0.4), inset 0 0 5px rgba(197, 160, 89, 0.2); border-color: rgba(197, 160, 89, 0.3); }
+            50% { box-shadow: 0 0 20px var(--gold), inset 0 0 10px var(--gold); border-color: var(--gold); }
+            100% { box-shadow: 0 0 5px rgba(197, 160, 89, 0.4), inset 0 0 5px rgba(197, 160, 89, 0.2); border-color: rgba(197, 160, 89, 0.3); }
         }
 
-        /* Üst Çubuk */
+        /* ÜST KALIP (KIRMIZI ÇİZGİLER):
+           Navigasyon ve üst çubuk artık ekranı kaplamaz.
+           Aşağıdaki butonlarla aynı genişlikte (max-width: 650px) ortalanmış bir kutu içindedir.
+        */
+        .header-wrapper {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 650px;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         .top-status-bar {
-            position: fixed; top: 0; left: 50%; transform: translateX(-50%);
-            padding: 8px 25px;
-            background: rgba(10, 10, 10, 0.3);
+            width: auto;
+            padding: 8px 30px;
+            background: rgba(10, 10, 10, 0.5);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(197, 160, 89, 0.3);
+            border: 1px solid rgba(197, 160, 89, 0.4);
             border-top: none;
             border-radius: 0 0 15px 15px;
             color: var(--neon-green);
-            display: flex; justify-content: center; align-items: center; gap: 12px; z-index: 1001;
+            display: flex; justify-content: center; align-items: center; gap: 12px;
             font-size: 0.8rem; font-weight: 800; letter-spacing: 1.5px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.5);
             white-space: nowrap;
         }
-        .status-text { display: flex; align-items: center; gap: 8px; }
-        .status-text span { opacity: 0.5; font-weight: 400; margin: 0 5px; color: #fff; }
 
         .heartbeat-dot {
             width: 12px; height: 12px; background-color: var(--neon-green); border-radius: 50%;
@@ -63,30 +77,40 @@
             70% { transform: scale(1); box-shadow: 0 0 5px var(--neon-green); }
         }
 
-        nav { position: fixed; top: 45px; width: 100%; background: rgba(10, 10, 10, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 15px 0; z-index: 1000; text-align: center; border-bottom: 1px solid rgba(197, 160, 89, 0.1); }
-        nav a { color: #fff; text-decoration: none; margin: 0 20px; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; transition: color 0.3s; }
+        nav { 
+            width: 100%; 
+            background: rgba(10, 10, 10, 0.4); 
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px); 
+            padding: 15px 0; 
+            text-align: center; 
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            border-radius: 15px;
+            margin-top: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+        nav a { color: #fff; text-decoration: none; margin: 0 15px; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
         nav a:hover { color: var(--gold); }
 
-        .hero { position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: hidden; padding-top: 100px; box-sizing: border-box; }
-        
-        /* Video Karartma Tamamen Kaldırıldı (Orijinal Canlı Görüntü) */
+        /* Video Karartması Kaldırıldı, Orijinal Renk */
+        .hero { position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: hidden; padding-top: 120px; box-sizing: border-box; }
         .video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: none; }
         
         .text-wrapper { position: relative; width: 100%; height: auto; min-height: 60px; z-index: 10; display: flex; justify-content: center; align-items: center; margin-bottom: 40px; }
-        .anim-text { position: absolute; font-size: 3rem; font-weight: 900; color: #fff; opacity: 0; transition: 0.5s ease-in-out; text-transform: uppercase; letter-spacing: 2px; width: 100%; }
+        .anim-text { position: absolute; font-size: 3rem; font-weight: 900; color: #fff; opacity: 0; transition: 0.5s ease-in-out; text-transform: uppercase; letter-spacing: 2px; width: 100%; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
         .anim-text.active { opacity: 1; }
         
-        .neon-blue { color: #00f3ff; text-shadow: 0 0 10px rgba(0, 243, 255, 0.6); }
-        .neon-pink { color: #ff00ea; text-shadow: 0 0 10px rgba(255, 0, 234, 0.6); }
-        .neon-yellow { color: #ffea00; text-shadow: 0 0 10px rgba(255, 234, 0, 0.6); }
+        .neon-blue { color: #00f3ff; text-shadow: 0 0 10px rgba(0, 243, 255, 0.8); }
+        .neon-pink { color: #ff00ea; text-shadow: 0 0 10px rgba(255, 0, 234, 0.8); }
+        .neon-yellow { color: #ffea00; text-shadow: 0 0 10px rgba(255, 234, 0, 0.8); }
 
-        /* Dış Kalıp Çizgilerine Göre Kompakt Buton Yerleşimi */
-        .btn-container { z-index: 100; width: 90%; max-width: 500px; box-sizing: border-box; display: flex; flex-direction: column; gap: 15px; margin: 0 auto; }
-        .top-btns { display: flex; gap: 15px; width: 100%; }
+        /* Buton Konteyneri - Üst Menü ile Aynı Genişlikte */
+        .btn-container { z-index: 100; width: 90%; max-width: 650px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px; margin: 0 auto; }
+        .top-btns { display: flex; gap: 20px; width: 100%; }
         
-        /* Tam Saydam Glassmorphism + Neon Animasyonlu Buton Tasarımı */
+        /* Saydam Glassmorphism Butonlar ve Neon Çerçeve */
         .glass-btn {
-            background: rgba(25, 25, 25, 0.1);
+            background: rgba(25, 25, 25, 0.2);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border: 2px solid rgba(197, 160, 89, 0.3);
@@ -97,19 +121,19 @@
             align-items: center;
             justify-content: center;
             flex: 1;
-            height: 85px;
+            height: 90px;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, background 0.3s ease;
             cursor: pointer;
-            animation: neon-glow 3s infinite alternate;
+            animation: neon-glow 2.5s infinite alternate;
         }
 
-        .glass-btn:hover { background: rgba(197, 160, 89, 0.15); transform: scale(1.02); }
-        .glass-btn.randevu { width: 100%; flex: none; color: #fff; }
+        .glass-btn:hover { background: rgba(197, 160, 89, 0.3); transform: scale(1.02); }
+        .glass-btn.randevu { width: 100%; flex: none; }
         
-        .btn-text-main { display: flex; align-items: center; font-size: 1.15rem; letter-spacing: 1px; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
-        .btn-icon { font-size: 1.4rem; margin-right: 8px; }
-        .btn-sub { font-size: 0.75rem; font-weight: 600; opacity: 0.9; margin-top: 5px; letter-spacing: 0.5px; transition: opacity 0.4s ease-in-out; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
+        .btn-text-main { display: flex; align-items: center; font-size: 1.25rem; letter-spacing: 1px; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.9); }
+        .btn-icon { font-size: 1.5rem; margin-right: 8px; }
+        .btn-sub { font-size: 0.8rem; font-weight: 600; opacity: 0.9; margin-top: 5px; letter-spacing: 0.5px; transition: opacity 0.4s ease-in-out; text-shadow: 0 1px 3px rgba(0,0,0,0.9); }
 
         .section { padding: 100px 20px 60px; max-width: 1000px; margin: 0 auto; }
         .title { text-align: center; color: var(--gold); font-size: 2.2rem; text-transform: uppercase; margin-bottom: 40px; letter-spacing: 3px; }
@@ -138,12 +162,12 @@
         }
         .modal.show { display: flex; opacity: 1; }
         .modal-content {
-            background: rgba(15, 15, 15, 0.4);
+            background: rgba(15, 15, 15, 0.6);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
-            padding: 40px 30px; border-radius: 20px; border: 1px solid rgba(197, 160, 89, 0.3);
+            padding: 40px 30px; border-radius: 20px; border: 1px solid rgba(197, 160, 89, 0.4);
             width: 90%; max-width: 450px; display: flex; flex-direction: column; gap: 18px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8); position: relative;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.9); position: relative;
             transform: translateY(-20px); transition: transform 0.3s; box-sizing: border-box;
             max-height: 90vh; overflow-y: auto;
         }
@@ -154,7 +178,7 @@
         .modal-content label { font-size: 0.85rem; color: #ccc; font-weight: 600; margin-bottom: -10px; letter-spacing: 0.5px; }
         
         .modal-content select, .modal-content input {
-            padding: 14px 16px; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; border-radius: 12px;
+            padding: 14px 16px; background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; border-radius: 12px;
             font-family: 'Montserrat', sans-serif; font-size: 1.05rem; outline: none; transition: all 0.3s; cursor: pointer;
             -webkit-appearance: none; appearance: none;
         }
@@ -162,43 +186,43 @@
             background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23c5a059%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
             background-repeat: no-repeat; background-position: right 15px top 50%; background-size: 12px auto;
         }
-        .modal-content select:focus, .modal-content input:focus { border-color: var(--gold); background: rgba(0, 0, 0, 0.7); box-shadow: 0 0 15px rgba(197, 160, 89, 0.2); }
+        .modal-content select:focus, .modal-content input:focus { border-color: var(--gold); background: rgba(0, 0, 0, 0.8); box-shadow: 0 0 15px rgba(197, 160, 89, 0.3); }
         
         .modal-submit-btn {
-            background: rgba(0, 230, 118, 0.1); color: #00e676; border: 1px solid #00e676;
+            background: rgba(0, 230, 118, 0.2); color: #00e676; border: 1px solid #00e676;
             padding: 16px; font-weight: 800; font-size: 1rem; border-radius: 12px; cursor: pointer; transition: all 0.3s;
             margin-top: 10px; text-transform: uppercase; letter-spacing: 1px; backdrop-filter: blur(5px);
         }
-        .modal-submit-btn:hover { background: #00e676; color: #000; box-shadow: 0 0 20px rgba(0, 230, 118, 0.4); }
+        .modal-submit-btn:hover { background: #00e676; color: #000; box-shadow: 0 0 20px rgba(0, 230, 118, 0.6); }
 
         /* RESPONSIVE TASARIM (PC, Tablet, Mobil) */
         
+        /* Tablet & Mobil Ortak Gizlemeler (Sadece 3 Menü Bırakır) */
         @media (max-width: 992px) {
             .anim-text { font-size: 2.2rem; }
-            .hero { padding-top: 120px; }
-            /* Tablet modunda da İletişim ve 360 Gizleniyor */
+            .hero { padding-top: 130px; }
             .hide-on-mobile { display: none !important; }
         }
 
+        /* Mobil (768px altı) */
         @media (max-width: 768px) {
-            .hide-on-mobile { display: none !important; }
+            .header-wrapper { width: 95%; }
+            .top-status-bar { font-size: 0.7rem; padding: 6px 15px; border-radius: 12px; }
             
-            .top-status-bar { width: 90%; font-size: 0.7rem; padding: 6px 15px; border-radius: 12px; top: 10px; border-top: 1px solid rgba(197, 160, 89, 0.3); }
+            nav { padding: 12px 0; margin-top: 8px; border-radius: 12px; }
+            nav a { display: inline-block; margin: 0 10px; font-size: 0.8rem; }
             
-            nav { top: 55px; padding: 12px 0; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
-            nav a { display: inline-block; margin: 0 15px; font-size: 0.8rem; }
-            
-            .hero { padding-top: 80px; justify-content: center; min-height: 100vh; }
+            .hero { padding-top: 140px; justify-content: center; }
             .anim-text { font-size: 1.8rem; letter-spacing: 1px; }
             .text-wrapper { min-height: 40px; margin-bottom: 30px; }
             
-            .btn-container { max-width: 100%; gap: 12px; padding: 0 20px; }
-            .top-btns { flex-direction: column; gap: 12px; } 
+            .btn-container { width: 95%; gap: 15px; }
+            .top-btns { flex-direction: column; gap: 15px; } 
             
-            .glass-btn { height: 75px; border-radius: 15px; }
-            .btn-text-main { font-size: 1rem; }
-            .btn-icon { font-size: 1.2rem; }
-            .btn-sub { font-size: 0.7rem; }
+            .glass-btn { height: 80px; border-radius: 15px; }
+            .btn-text-main { font-size: 1.15rem; }
+            .btn-icon { font-size: 1.3rem; }
+            .btn-sub { font-size: 0.75rem; }
 
             .section { padding: 80px 20px 40px; }
             .title { font-size: 1.8rem; margin-bottom: 30px; }
@@ -211,18 +235,19 @@
 </head>
 <body>
 
-    <div class="top-status-bar">
-        <div class="heartbeat-dot"></div>
-        <div class="status-text">ŞU ANDA AÇIĞIZ <span>|</span> CURRENTLY OPEN</div>
+    <div class="header-wrapper">
+        <div class="top-status-bar">
+            <div class="heartbeat-dot"></div>
+            <span>ŞU ANDA AÇIĞIZ | CURRENTLY OPEN</span>
+        </div>
+        <nav id="navbar">
+            <a href="#anasayfa">Anasayfa</a>
+            <a href="#fiyatlar">Fiyat Listesi</a>
+            <a href="#galeri">Galeri</a>
+            <a href="#sanal-tur" class="hide-on-mobile">360° Gezinti</a>
+            <a href="#iletisim" class="hide-on-mobile">İletişim</a>
+        </nav>
     </div>
-
-    <nav id="navbar">
-        <a href="#anasayfa">Anasayfa</a>
-        <a href="#fiyatlar">Fiyat Listesi</a>
-        <a href="#galeri">Galeri</a>
-        <a href="#sanal-tur" class="hide-on-mobile">360° Gezinti</a>
-        <a href="#iletisim" class="hide-on-mobile">İletişim</a>
-    </nav>
 
     <header id="anasayfa" class="hero">
         <video autoplay muted loop playsinline class="video-bg">
@@ -326,7 +351,7 @@
             <label>Tarih Seçin:</label>
             <input type="date" id="r-tarih" onclick="this.showPicker()">
             
-            <label>Saat Seçin (1 Saatlik Periyotlar):</label>
+            <label>Saat Seçin (1 Saatlik Tam Periyotlar):</label>
             <input type="time" id="r-saat" step="3600" onclick="this.showPicker()">
             
             <button onclick="gonderWhatsapp()" class="modal-submit-btn">Onayla ve WhatsApp'a Git</button>
@@ -335,6 +360,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            // Geçmiş Tarihleri Gizle
             const tarihInput = document.getElementById('r-tarih');
             const bugun = new Date();
             const yyyy = bugun.getFullYear();
@@ -342,6 +368,7 @@
             const dd = String(bugun.getDate()).padStart(2, '0');
             tarihInput.min = `${yyyy}-${mm}-${dd}`;
             
+            // Dinamik Alt Yazı Değişimi
             const subCall = document.getElementById('sub-call');
             const subWp = document.getElementById('sub-wp');
             const subRandevu = document.getElementById('sub-randevu');
@@ -369,6 +396,7 @@
                 }, 400); 
             }, 3000); 
 
+            // Otomatik Tam Ekran Etkileşimi
             document.body.addEventListener('click', function ilkTiklamaTamEkran() {
                 let doc = window.document;
                 let docEl = doc.documentElement;
@@ -397,15 +425,7 @@
         }
         loop('.g1', 3000); 
 
-        window.addEventListener('scroll', function() {
-            var navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
+        // Pannellum 360 Tur
         pannellum.viewer('panorama', {
             "type": "equirectangular",
             "panorama": "https://pannellum.org/images/alma.jpg", 
@@ -434,15 +454,15 @@
                 return;
             }
 
-            // 1 Saat Kuralı Dakika Kontrolü (Sadece Tam Saatler)
+            // 1 Saat Periyot (Dakika) Kontrolü: Sadece 00 kabul edilir (Örn: 09:00, 10:00)
             const dakika = saat.split(':')[1];
             if (dakika !== "00") {
-                alert('Lütfen tam saat seçin (Örn: 09:00, 10:00). Randevu aralıklarımız 1 saat sürmektedir.');
+                alert('Lütfen tam saat seçin (Örn: 09:00, 10:00). 1 Müşteri işlem süresi 1 saattir.');
                 return;
             }
 
             if (saat < "09:00" || saat > "22:00") {
-                alert('Çalışma saatlerimiz 09:00 ile 22:00 arasındadır. Lütfen bu saatler aralığında bir seçim yapınız.');
+                alert('Çalışma saatlerimiz 09:00 ile 22:00 arasındadır. Lütfen geçerli bir saat seçiniz.');
                 return;
             }
 
