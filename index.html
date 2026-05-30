@@ -25,7 +25,7 @@
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 5px; border: 2px solid var(--dark); }
         ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
         
-        /* En Üst Aktiflik Çubuğu - Ortalı, Saydam ve Sarkan Yapı */
+        /* En Üst Aktiflik Çubuğu */
         .top-status-bar {
             position: fixed; top: 0; left: 50%; transform: translateX(-50%);
             padding: 8px 25px;
@@ -42,7 +42,6 @@
         .status-text { display: flex; align-items: center; gap: 8px; }
         .status-text span { opacity: 0.5; font-weight: 400; margin: 0 5px; color: #fff; }
 
-        /* Kalp Atışı Animasyonu */
         .heartbeat-dot {
             width: 12px; height: 12px; background-color: var(--neon-green); border-radius: 50%;
             box-shadow: 0 0 10px var(--neon-green); animation: heartbeat 1.5s infinite;
@@ -80,7 +79,6 @@
         .btn-call { color: #fff; background: linear-gradient(135deg, #ff9900, #ff5500); box-shadow: 0 10px 20px rgba(255, 153, 0, 0.2); }
         .btn-wp { color: #fff; background: linear-gradient(135deg, #00e676, #128c7e); box-shadow: 0 10px 20px rgba(0, 230, 118, 0.2); }
         
-        /* Randevu Butonu - Diğer butonlarla aynı tasarım */
         .btn-randevu { width: 100%; color: #000; background: linear-gradient(135deg, var(--gold), #a18141); box-shadow: 0 10px 20px rgba(197, 160, 89, 0.3); }
         
         .btn-text-main { display: flex; align-items: center; font-size: 1.3rem; letter-spacing: 1px; }
@@ -118,24 +116,28 @@
             background: rgba(15, 15, 15, 0.35);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            padding: 35px 25px; border-radius: 15px; border: 1px solid rgba(197, 160, 89, 0.3);
-            width: 90%; max-width: 400px; display: flex; flex-direction: column; gap: 18px;
+            padding: 40px 30px; border-radius: 15px; border: 1px solid rgba(197, 160, 89, 0.3);
+            width: 90%; max-width: 450px; display: flex; flex-direction: column; gap: 20px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); position: relative;
             transform: translateY(-20px); transition: transform 0.3s;
         }
         .modal.show .modal-content { transform: translateY(0); }
         .close-btn { position: absolute; top: 12px; right: 18px; color: #aaa; font-size: 28px; cursor: pointer; transition: 0.2s; }
         .close-btn:hover { color: var(--gold); }
-        .modal-content h3 { color: var(--gold); text-align: center; margin: 0 0 10px 0; font-size: 1.5rem; letter-spacing: 1px; }
-        .modal-content label { font-size: 0.85rem; color: #bbb; font-weight: 600; margin-bottom: -10px; }
+        .modal-content h3 { color: var(--gold); text-align: center; margin: 0 0 10px 0; font-size: 1.8rem; letter-spacing: 1px; }
+        .modal-content label { font-size: 0.9rem; color: #bbb; font-weight: 600; margin-bottom: -12px; }
+        
+        /* Giriş Alanları Büyütüldü */
         .modal-content select, .modal-content input {
-            padding: 12px; background: rgba(10, 10, 10, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; border-radius: 8px;
-            font-family: 'Montserrat', sans-serif; font-size: 1rem; outline: none; transition: 0.3s;
+            padding: 16px; background: rgba(10, 10, 10, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; border-radius: 8px;
+            font-family: 'Montserrat', sans-serif; font-size: 1.15rem; outline: none; transition: 0.3s;
+            cursor: pointer;
         }
         .modal-content select:focus, .modal-content input:focus { border-color: var(--gold); background: rgba(10, 10, 10, 0.8); }
+        
         .modal-submit-btn {
             background: linear-gradient(135deg, #00e676, #128c7e); color: #fff; border: none;
-            padding: 16px; font-weight: 800; font-size: 1rem; border-radius: 8px; cursor: pointer; transition: 0.3s;
+            padding: 18px; font-weight: 800; font-size: 1.1rem; border-radius: 8px; cursor: pointer; transition: 0.3s;
             margin-top: 15px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 5px 15px rgba(0, 230, 118, 0.2);
         }
         .modal-submit-btn:hover { transform: scale(1.02); box-shadow: 0 8px 20px rgba(0, 230, 118, 0.4); }
@@ -252,26 +254,46 @@
             
             <label>Hizmet Seçin:</label>
             <select id="r-hizmet">
-                <option value="Saç Traşı">Saç Traşı</option>
-                <option value="Saç Traşı + Yıkama">Saç Traşı + Yıkama</option>
-                <option value="Saç + Sakal">Saç + Sakal</option>
-                <option value="Saç + Sakal + Yıkama">Saç + Sakal + Yıkama</option>
-                <option value="Sakal Traşı">Sakal Traşı</option>
-                <option value="Profesyonel Cilt Bakımı">Profesyonel Cilt Bakımı</option>
-                <option value="Keratin">Keratin</option>
+                <option value="Saç Traşı">Saç Traşı - 250 TL</option>
+                <option value="Saç Traşı + Yıkama">Saç Traşı + Yıkama - 300 TL</option>
+                <option value="Saç + Sakal (Yıkamasız)">Saç + Sakal (Yıkamasız) - 400 TL</option>
+                <option value="Saç + Sakal + Yıkama">Saç + Sakal + Yıkama - 450 TL</option>
+                <option value="Sakal Traşı">Sakal Traşı - 200 TL</option>
+                <option value="Naturel Sakal">Naturel Sakal - 200 TL</option>
+                <option value="Çocuk Traşı">Çocuk Traşı - 250 TL</option>
+                <option value="Fön">Fön - 150 TL</option>
+                <option value="Ağda (Kaş & Yanak)">Ağda (Kaş & Yanak) - 100 TL</option>
+                <option value="Kil Maskesi">Kil Maskesi - 100 TL</option>
+                <option value="Saç Boyası">Saç Boyası - 500 TL</option>
+                <option value="Profesyonel Cilt Bakımı">Profesyonel Cilt Bakımı - 500 TL</option>
+                <option value="Keratin">Keratin - 500 TL</option>
+                <option value="Damat Traşı">Damat Traşı - 3000 TL</option>
             </select>
             
             <label>Tarih Seçin:</label>
-            <input type="date" id="r-tarih">
+            <input type="date" id="r-tarih" onclick="this.showPicker()">
             
-            <label>Saat Seçin:</label>
-            <input type="time" id="r-saat">
+            <label>Saat Seçin (09:00 - 22:00):</label>
+            <input type="time" id="r-saat" onclick="this.showPicker()">
             
             <button onclick="gonderWhatsapp()" class="modal-submit-btn">Onayla ve WhatsApp'a Git</button>
         </div>
     </div>
 
     <script>
+        // Sayfa yüklendiğinde geçmiş tarihleri engelle
+        document.addEventListener("DOMContentLoaded", function() {
+            const tarihInput = document.getElementById('r-tarih');
+            const bugun = new Date();
+            
+            const yyyy = bugun.getFullYear();
+            const mm = String(bugun.getMonth() + 1).padStart(2, '0');
+            const dd = String(bugun.getDate()).padStart(2, '0');
+            
+            // Format: YYYY-MM-DD
+            tarihInput.min = `${yyyy}-${mm}-${dd}`;
+        });
+
         function loop(s, t) {
             const el = document.querySelectorAll(s); let i = 0;
             if(el.length > 0) {
@@ -321,7 +343,6 @@
                 return;
             }
 
-            // Saat Kontrolü (09:00 - 22:00 Arası)
             if (saat < "09:00" || saat > "22:00") {
                 alert('Çalışma saatlerimiz 09:00 ile 22:00 arasındadır. Lütfen bu saatler aralığında bir seçim yapınız.');
                 return;
