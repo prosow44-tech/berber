@@ -78,7 +78,6 @@
         
         .btn-call { color: #fff; background: linear-gradient(135deg, #ff9900, #ff5500); box-shadow: 0 10px 20px rgba(255, 153, 0, 0.2); }
         .btn-wp { color: #fff; background: linear-gradient(135deg, #00e676, #128c7e); box-shadow: 0 10px 20px rgba(0, 230, 118, 0.2); }
-        
         .btn-randevu { width: 100%; color: #000; background: linear-gradient(135deg, var(--gold), #a18141); box-shadow: 0 10px 20px rgba(197, 160, 89, 0.3); }
         
         .btn-text-main { display: flex; align-items: center; font-size: 1.3rem; letter-spacing: 1px; }
@@ -127,11 +126,9 @@
         .modal-content h3 { color: var(--gold); text-align: center; margin: 0 0 10px 0; font-size: 1.8rem; letter-spacing: 1px; }
         .modal-content label { font-size: 0.9rem; color: #bbb; font-weight: 600; margin-bottom: -12px; }
         
-        /* Giriş Alanları Büyütüldü */
         .modal-content select, .modal-content input {
             padding: 16px; background: rgba(10, 10, 10, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; border-radius: 8px;
-            font-family: 'Montserrat', sans-serif; font-size: 1.15rem; outline: none; transition: 0.3s;
-            cursor: pointer;
+            font-family: 'Montserrat', sans-serif; font-size: 1.15rem; outline: none; transition: 0.3s; cursor: pointer;
         }
         .modal-content select:focus, .modal-content input:focus { border-color: var(--gold); background: rgba(10, 10, 10, 0.8); }
         
@@ -142,16 +139,40 @@
         }
         .modal-submit-btn:hover { transform: scale(1.02); box-shadow: 0 8px 20px rgba(0, 230, 118, 0.4); }
 
+        /* TELEFON / MOBİL UYUM (RESPONSIVE) DÜZELTMELERİ */
         @media (max-width: 768px) {
+            .hero { justify-content: flex-start; padding-top: 100px; }
             .anim-text { font-size: 1.6rem; letter-spacing: 1px; }
+            .text-wrapper { height: 40px; margin: 0 0 20px 0; }
+            
+            .btn-container { max-width: 90%; margin: 20px auto; gap: 15px; }
             .top-btns { flex-direction: column; gap: 15px; }
-            .btn-call, .btn-wp, .btn-randevu { width: 100%; flex: none; height: 75px; }
+            .btn-call, .btn-wp, .btn-randevu { width: 100%; flex: none; height: 75px; border-radius: 35px; }
             .btn-text-main { font-size: 1.1rem; }
-            .btn-container { max-width: 90%; }
-            nav a { display: block; margin: 15px 0; font-size: 0.9rem; }
-            nav { background: rgba(10, 10, 10, 0.95); padding: 15px 0; }
+            
+            /* Üst Çubuk Sabitleme ve Küçültme */
+            .top-status-bar { 
+                width: 85%; 
+                font-size: 0.65rem; 
+                padding: 8px 10px; 
+                top: 5px; 
+                border-radius: 10px; 
+                border-top: 1px solid rgba(197, 160, 89, 0.5); 
+                white-space: nowrap; 
+            }
+            
+            /* Menüyü Yatay Yapma ve Boşlukları Azaltma */
+            nav { 
+                top: 50px; 
+                padding: 10px 0; 
+                background: rgba(10, 10, 10, 0.95); 
+                border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+                overflow-x: auto; 
+                white-space: nowrap; 
+            }
+            nav a { display: inline-block; margin: 0 15px; font-size: 0.8rem; }
+            
             .price-list { grid-template-columns: 1fr; }
-            .top-status-bar { font-size: 0.7rem; top: 10px; border-radius: 15px; border-top: 1px solid rgba(197, 160, 89, 0.5); }
         }
     </style>
 </head>
@@ -281,16 +302,12 @@
     </div>
 
     <script>
-        // Sayfa yüklendiğinde geçmiş tarihleri engelle
         document.addEventListener("DOMContentLoaded", function() {
             const tarihInput = document.getElementById('r-tarih');
             const bugun = new Date();
-            
             const yyyy = bugun.getFullYear();
             const mm = String(bugun.getMonth() + 1).padStart(2, '0');
             const dd = String(bugun.getDate()).padStart(2, '0');
-            
-            // Format: YYYY-MM-DD
             tarihInput.min = `${yyyy}-${mm}-${dd}`;
         });
 
