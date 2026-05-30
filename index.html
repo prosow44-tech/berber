@@ -25,13 +25,20 @@
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 5px; border: 2px solid var(--dark); }
         ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
         
-        /* En Üst Aktiflik Çubuğu */
+        /* En Üst Aktiflik Çubuğu - Çizgili Tasarım */
         .top-status-bar {
-            position: fixed; top: 0; width: 100%; height: 35px; background: rgba(10, 10, 10, 0.95); color: var(--neon-green);
+            position: fixed; top: 0; width: 100%; height: 35px; color: var(--neon-green);
+            background: repeating-linear-gradient(
+                -45deg,
+                rgba(10, 10, 10, 0.95),
+                rgba(10, 10, 10, 0.95) 15px,
+                rgba(197, 160, 89, 0.15) 15px,
+                rgba(197, 160, 89, 0.15) 30px
+            );
             display: flex; justify-content: center; align-items: center; gap: 12px; z-index: 1001;
-            border-bottom: 1px solid rgba(197, 160, 89, 0.3); font-size: 0.8rem; font-weight: 800; letter-spacing: 1.5px;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.5); font-size: 0.8rem; font-weight: 800; letter-spacing: 1.5px;
         }
-        .status-text { display: flex; align-items: center; gap: 8px; }
+        .status-text { display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.6); padding: 2px 10px; border-radius: 4px; }
         .status-text span { opacity: 0.5; font-weight: 400; margin: 0 5px; color: #fff; }
 
         /* Kalp Atışı Animasyonu */
@@ -66,14 +73,40 @@
         .btn-container { display: flex; flex-direction: column; gap: 20px; z-index: 100; margin: 50px auto; align-items: center; width: 100%; max-width: 550px; }
         .top-btns { display: flex; gap: 20px; justify-content: space-between; width: 100%; }
         
-        .btn-call, .btn-wp, .btn-randevu { flex: 1; height: 85px; border-radius: 45px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 800; text-decoration: none; transition: transform 0.2s; border: none; }
+        .btn-call, .btn-wp, .btn-randevu { flex: 1; height: 85px; border-radius: 45px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 800; text-decoration: none; transition: transform 0.2s; border: none; cursor: pointer; }
         .btn-call:hover, .btn-wp:hover, .btn-randevu:hover { transform: scale(1.03); }
         
         .btn-call { color: #fff; background: linear-gradient(135deg, #ff9900, #ff5500); box-shadow: 0 10px 20px rgba(255, 153, 0, 0.2); }
         .btn-wp { color: #fff; background: linear-gradient(135deg, #00e676, #128c7e); box-shadow: 0 10px 20px rgba(0, 230, 118, 0.2); }
         
-        /* Randevu Butonu */
-        .btn-randevu { width: 100%; background: linear-gradient(135deg, var(--gold), #a18141); color: #000; box-shadow: 0 10px 20px rgba(197, 160, 89, 0.3); }
+        /* Dinamik Petek / 5Gen Kaplamalı Randevu Butonu */
+        .btn-randevu { 
+            width: 100%; 
+            color: #fff; 
+            border: 2px solid var(--gold);
+            background-color: #1a1a1a;
+            box-shadow: 0 10px 20px rgba(197, 160, 89, 0.4);
+            /* 3 Renkli Petek (Hexagon) Deseni - Gold, Dark, Neon Green */
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='104' viewBox='0 0 60 104' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%23333' stroke-width='2' fill-opacity='0.6'%3E%3Cpolygon points='30,0 60,17.3 60,52 30,69.3 0,52 0,17.3' fill='%23c5a059'/%3E%3Cpolygon points='30,52 60,69.3 60,104 30,121.3 0,104 0,69.3' fill='%2300ff88'/%3E%3Cpolygon points='0,34.6 30,52 30,86.6 0,69.3 -30,52 -30,17.3' fill='%23111'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: 50px 86px;
+            animation: petekHareket 3s ease-in-out infinite alternate;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-randevu::after {
+            content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.4); z-index: 1; border-radius: 45px;
+        }
+
+        .btn-randevu .btn-text-main, .btn-randevu .btn-sub {
+            position: relative; z-index: 2; text-shadow: 0 2px 5px rgba(0,0,0,0.9);
+        }
+
+        @keyframes petekHareket {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 40px; }
+        }
         
         .btn-text-main { display: flex; align-items: center; font-size: 1.3rem; letter-spacing: 1px; }
         .btn-icon { font-size: 1.4rem; margin-right: 8px; }
@@ -98,6 +131,36 @@
 
         .contact-box { text-align: center; padding: 40px 0; }
         .contact-box p { font-size: 1.1rem; color: #aaa; line-height: 1.8; margin-bottom: 15px; }
+
+        /* Randevu Modal Stilleri */
+        .modal {
+            display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.85); backdrop-filter: blur(5px);
+            justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s;
+        }
+        .modal.show { display: flex; opacity: 1; }
+        .modal-content {
+            background: #111; padding: 35px 25px; border-radius: 15px; border: 1px solid var(--gold);
+            width: 90%; max-width: 400px; display: flex; flex-direction: column; gap: 18px;
+            box-shadow: 0 0 40px rgba(197, 160, 89, 0.15); position: relative;
+            transform: translateY(-20px); transition: transform 0.3s;
+        }
+        .modal.show .modal-content { transform: translateY(0); }
+        .close-btn { position: absolute; top: 12px; right: 18px; color: #aaa; font-size: 28px; cursor: pointer; transition: 0.2s; }
+        .close-btn:hover { color: var(--gold); }
+        .modal-content h3 { color: var(--gold); text-align: center; margin: 0 0 10px 0; font-size: 1.5rem; letter-spacing: 1px; }
+        .modal-content label { font-size: 0.85rem; color: #bbb; font-weight: 600; margin-bottom: -10px; }
+        .modal-content select, .modal-content input {
+            padding: 12px; background: #1a1a1a; border: 1px solid #333; color: #fff; border-radius: 8px;
+            font-family: 'Montserrat', sans-serif; font-size: 1rem; outline: none; transition: 0.3s;
+        }
+        .modal-content select:focus, .modal-content input:focus { border-color: var(--gold); }
+        .modal-submit-btn {
+            background: linear-gradient(135deg, #00e676, #128c7e); color: #fff; border: none;
+            padding: 16px; font-weight: 800; font-size: 1rem; border-radius: 8px; cursor: pointer; transition: 0.3s;
+            margin-top: 15px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 5px 15px rgba(0, 230, 118, 0.2);
+        }
+        .modal-submit-btn:hover { transform: scale(1.02); box-shadow: 0 8px 20px rgba(0, 230, 118, 0.4); }
 
         @media (max-width: 768px) {
             .anim-text { font-size: 1.6rem; letter-spacing: 1px; }
@@ -149,11 +212,10 @@
                     <span class="btn-sub">Konum Gönder</span>
                 </a>
             </div>
-            <!-- Fresha Entegrasyonu -->
-            <a href="https://www.fresha.com/book-now/malatya-berber-h64gfdr1/all-offer?share=true&pId=2998174" target="_blank" class="btn-randevu">
+            <button onclick="openModal()" class="btn-randevu">
                 <span class="btn-text-main"><span class="btn-icon">📅</span> RANDEVU AL</span>
                 <span class="btn-sub">Tarih ve Saat Seçin</span>
-            </a>
+            </button>
         </div>
     </header>
 
@@ -204,6 +266,32 @@
         </div>
     </section>
 
+    <div id="randevuModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h3>RANDEVU AL</h3>
+            
+            <label>Hizmet Seçin:</label>
+            <select id="r-hizmet">
+                <option value="Saç Traşı">Saç Traşı</option>
+                <option value="Saç Traşı + Yıkama">Saç Traşı + Yıkama</option>
+                <option value="Saç + Sakal">Saç + Sakal</option>
+                <option value="Saç + Sakal + Yıkama">Saç + Sakal + Yıkama</option>
+                <option value="Sakal Traşı">Sakal Traşı</option>
+                <option value="Profesyonel Cilt Bakımı">Profesyonel Cilt Bakımı</option>
+                <option value="Keratin">Keratin</option>
+            </select>
+            
+            <label>Tarih Seçin:</label>
+            <input type="date" id="r-tarih">
+            
+            <label>Saat Seçin:</label>
+            <input type="time" id="r-saat">
+            
+            <button onclick="gonderWhatsapp()" class="modal-submit-btn">Onayla ve WhatsApp'a Git</button>
+        </div>
+    </div>
+
     <script>
         function loop(s, t) {
             const el = document.querySelectorAll(s); let i = 0;
@@ -233,6 +321,47 @@
             "autoRotate": -2,
             "showControls": true
         });
+
+        /* Modal ve WhatsApp Fonksiyonları */
+        function openModal() {
+            const modal = document.getElementById('randevuModal');
+            modal.classList.add('show');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('randevuModal');
+            modal.classList.remove('show');
+        }
+
+        function gonderWhatsapp() {
+            const hizmet = document.getElementById('r-hizmet').value;
+            const tarih = document.getElementById('r-tarih').value;
+            const saat = document.getElementById('r-saat').value;
+
+            if (!tarih || !saat) {
+                alert('Lütfen ilerlemek için tarih ve saat seçiniz.');
+                return;
+            }
+
+            // Tarih formatını güzelleştirme (opsiyonel)
+            const dateObj = new Date(tarih);
+            const formatliTarih = dateObj.toLocaleDateString('tr-TR');
+
+            const mesaj = `Merhaba, ${formatliTarih} - ${saat} için ${hizmet} randevusu oluşturmak istiyorum.`;
+            const telefon = "905345916444"; // Kendi numaranız
+            const wpUrl = `https://wa.me/${telefon}?text=${encodeURIComponent(mesaj)}`;
+
+            window.open(wpUrl, '_blank');
+            closeModal();
+        }
+
+        // Modal dışına tıklandığında kapatma
+        window.onclick = function(event) {
+            const modal = document.getElementById('randevuModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
     </script>
 </body>
 </html>
