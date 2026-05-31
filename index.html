@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Malatya Berber - Tarzınız Farkınız Olsun. Profesyonel saç ve sakal tasarımı, cilt bakımı ve kişisel imaj danışmanlığı.">
+<meta name="keywords" content="Malatya berber, erkek kuaförü, saç kesimi, Malatya saç tasarımı, Malatya VIP berber, en iyi berber Malatya, sakal şekillendirme, cilt bakımı erkek, keratin bakım erkek, damat tıraşı Malatya, saç boyama erkek, çocuk tıraşı Malatya, trend saç modelleri erkek, Battalgazi berber, Yeşilyurt berber, saç stili uzmanı, kaliteli erkek kuaförü, profesyonel berber, saç bakım uzmanı, erkek saç trendleri, stil danışmanı berber, Malatya lüks erkek kuaförü">
 <title>Berber | Tarzın Adresi</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
@@ -45,12 +47,6 @@
             radial-gradient(1px 1px at 40% 40%, rgba(255, 255, 255, 0.8), transparent),
             radial-gradient(2px 2px at 60% 60%, rgba(255, 255, 255, 0.9), transparent);
         background-size: 150px 150px;
-        animation: stars-twinkle 4s infinite alternate ease-in-out;
-    }
-
-    @keyframes stars-twinkle {
-        0% { opacity: 0.6; }
-        100% { opacity: 1; }
     }
 
     ::-webkit-scrollbar { width: 10px; }
@@ -137,18 +133,6 @@
         animation: neon-barber-colors 2s linear infinite;
         box-shadow: 0 0 8px rgba(255,255,255,0.6);
         z-index: 20;
-    }
-
-    .video-bg-blur {
-        position: absolute; 
-        top: 0; 
-        left: 0; 
-        width: 100%; 
-        height: 100%;
-        object-fit: cover; 
-        filter: blur(30px); 
-        opacity: 0.6; 
-        z-index: -2;
     }
 
     .video-bg { 
@@ -281,6 +265,24 @@
         box-shadow: 0 5px 15px rgba(0,0,0,0.5);
     }
     .gallery-video:hover { opacity: 1; transform: scale(1.02); }
+
+    .lightbox-thumbnail {
+        position: relative;
+        cursor: pointer;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        background: #000;
+        height: 350px;
+    }
+    .lightbox-thumbnail img {
+        width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.3s;
+    }
+    .lightbox-thumbnail:hover img { opacity: 1; transform: scale(1.02); }
+    .play-icon {
+        position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        font-size: 3rem; color: rgba(255,255,255,0.8); text-shadow: 0 2px 10px #000; pointer-events: none;
+    }
 
     .pano-container { width: 100%; height: 500px; background: #111; margin-bottom: 50px; border: 1px solid #333; border-radius: 10px; overflow: hidden; }
     .map-container iframe { width: 100%; height: 400px; border: 0; filter: invert(90%) hue-rotate(180deg) brightness(0.8) contrast(1.2); border-radius: 10px; }
@@ -425,6 +427,13 @@
         font-weight: bold;
     }
 
+    .lightbox-content {
+        position: relative; width: 90%; max-width: 800px; background: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 0 30px rgba(0,0,0,0.9);
+    }
+    .lightbox-content video { width: 100%; height: auto; display: block; }
+    .close-lightbox { position: absolute; top: 15px; right: 25px; font-size: 40px; color: #fff; cursor: pointer; z-index: 2001; transition: 0.2s; }
+    .close-lightbox:hover { color: #d32f2f; }
+
     @media (max-width: 992px) {
         .anim-text { font-size: 2.2rem; }
         .hero { padding-top: 130px; }
@@ -456,6 +465,7 @@
         .title { font-size: 1.8rem; margin-bottom: 30px; }
         .price-list { grid-template-columns: 1fr; }
         .gallery-grid { grid-template-columns: 1fr; }
+        .lightbox-thumbnail { height: 250px; }
         .pano-container { height: 300px; }
         .map-container iframe { height: 300px; }
         .modal-content { padding: 25px 20px; }
@@ -490,10 +500,6 @@
 </div>
 
 <header id="anasayfa" class="hero">
-    
-    <video autoplay muted loop playsinline class="video-bg-blur" poster="assets/arkaplan-kare.jpg">
-        <source src="assets/arkaplan-video.webm" type="video/webm">
-    </video>
     <video autoplay muted loop playsinline class="video-bg" poster="assets/arkaplan-kare.jpg">
         <source src="assets/arkaplan-video.webm" type="video/webm">
     </video>
@@ -509,17 +515,17 @@
         <div class="top-btns">
             <a href="tel:05345916444" class="glass-btn">
                 <span class="btn-text-main"><span class="btn-icon">📞</span> HEMEN ARA</span>
-                <span class="btn-sub" id="sub-call">Saç Stilini Konuşalım</span>
+                <span class="btn-sub">Saç Stilini Konuşalım</span>
             </a>
             <a href="https://wa.me/905345916444" class="glass-btn">
                 <span class="btn-text-main"><span class="btn-icon">💬</span> WHATSAPP</span>
-                <span class="btn-sub" id="sub-wp">Berberine Mesaj Yaz</span>
+                <span class="btn-sub">Berberine Mesaj Yaz</span>
             </a>
         </div>
         
         <button onclick="openModal()" class="glass-btn randevu">
             <span class="btn-text-main"><span class="btn-icon">📅</span> RANDEVU AL</span>
-            <span class="btn-sub" id="sub-randevu">Koltuğunu Ayırt</span>
+            <span class="btn-sub">Koltuğunu Ayırt</span>
         </button>
     </div>
 </header>
@@ -550,31 +556,32 @@
 <section id="galeri" class="section">
     <h2 class="title">Çalışmalarımız</h2>
     <div class="gallery-grid">
-        <video muted loop playsinline preload="none" id="v-calisma1" class="gallery-video" poster="assets/calisma1.jpg"><source src="assets/calisma1.webm" type="video/webm"></video>
-        <video muted loop playsinline preload="none" id="v-calisma2" class="gallery-video" poster="assets/calisma2.jpg"><source src="assets/calisma2.webm" type="video/webm"></video>
-        <video muted loop playsinline preload="none" class="gallery-video delayed-video" poster="assets/calisma3.jpg"><source src="assets/calisma3.webm" type="video/webm"></video>
-        <video muted loop playsinline preload="none" class="gallery-video delayed-video" poster="assets/calisma4.jpg"><source src="assets/calisma4.webm" type="video/webm"></video>
-        <video muted loop playsinline preload="none" class="gallery-video delayed-video" poster="assets/calisma5.jpg"><source src="assets/calisma5.webm" type="video/webm"></video>
-        <video muted loop playsinline preload="none" class="gallery-video delayed-video" poster="assets/calisma6.jpg"><source src="assets/calisma6.webm" type="video/webm"></video>
-        <video muted loop playsinline preload="none" class="gallery-video delayed-video" poster="assets/calisma7.jpg"><source src="assets/calisma7.webm" type="video/webm"></video>
-        <video muted loop playsinline preload="none" class="gallery-video delayed-video" poster="assets/calisma8.jpg"><source src="assets/calisma8.webm" type="video/webm"></video>
-        <video muted loop playsinline preload="none" class="gallery-video delayed-video" poster="assets/calisma9.jpg"><source src="assets/calisma9.webm" type="video/webm"></video>
-        <video muted loop playsinline preload="none" class="gallery-video delayed-video" poster="assets/calisma10.jpg"><source src="assets/calisma10.webm" type="video/webm"></video>
-        <video muted loop playsinline preload="none" class="gallery-video delayed-video" poster="assets/calisma11.jpg"><source src="assets/calisma11.webm" type="video/webm"></video>
-        <video muted loop playsinline preload="none" class="gallery-video delayed-video" poster="assets/calisma12.jpg"><source src="assets/calisma12.webm" type="video/webm"></video>
-        <video muted loop playsinline preload="none" class="gallery-video delayed-video" poster="assets/calisma13.jpg"><source src="assets/calisma13.webm" type="video/webm"></video>
-        <video muted loop playsinline preload="none" class="gallery-video delayed-video" poster="assets/calisma14.jpg"><source src="assets/calisma14.webm" type="video/webm"></video>
-        <video muted loop playsinline preload="none" class="gallery-video delayed-video" poster="assets/calisma15.jpg"><source src="assets/calisma15.webm" type="video/webm"></video>
-        <video muted loop playsinline preload="none" class="gallery-video delayed-video" poster="assets/calisma16.jpg"><source src="assets/calisma16.webm" type="video/webm"></video>
-        <video muted loop playsinline preload="none" class="gallery-video delayed-video" poster="assets/calisma17.jpg"><source src="assets/calisma17.webm" type="video/webm"></video>
-        <video muted loop playsinline preload="none" class="gallery-video delayed-video" poster="assets/calisma18.jpg"><source src="assets/calisma18.webm" type="video/webm"></video>
-        <video muted loop playsinline preload="none" class="gallery-video delayed-video" poster="assets/calisma19.jpg"><source src="assets/calisma19.webm" type="video/webm"></video>
-        <video muted loop playsinline preload="none" class="gallery-video delayed-video" poster="assets/calisma20.jpg"><source src="assets/calisma20.webm" type="video/webm"></video>
-        <video muted loop playsinline preload="none" class="gallery-video delayed-video" poster="assets/calisma21.jpg"><source src="assets/calisma21.webm" type="video/webm"></video>
-        <video muted loop playsinline preload="none" class="gallery-video delayed-video" poster="assets/calisma22.jpg"><source src="assets/calisma22.webm" type="video/webm"></video>
-        <video muted loop playsinline preload="none" class="gallery-video delayed-video" poster="assets/calisma23.jpg"><source src="assets/calisma23.webm" type="video/webm"></video>
-        <video muted loop playsinline preload="none" class="gallery-video delayed-video" poster="assets/calisma24.jpg"><source src="assets/calisma24.webm" type="video/webm"></video>
-        <video muted loop playsinline preload="none" class="gallery-video delayed-video" poster="assets/calisma25.jpg"><source src="assets/calisma25.webm" type="video/webm"></video>
+        <video muted loop playsinline id="v-calisma1" class="gallery-video" poster="assets/calisma1.jpg"><source src="assets/calisma1.webm" type="video/webm"></video>
+        <video muted loop playsinline id="v-calisma2" class="gallery-video" poster="assets/calisma2.jpg"><source src="assets/calisma2.webm" type="video/webm"></video>
+        <video muted loop playsinline id="v-calisma3" class="gallery-video" poster="assets/calisma3.jpg"><source src="assets/calisma3.webm" type="video/webm"></video>
+        
+        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma4.webm')"><img src="assets/calisma4.jpg" alt="Çalışma 4"><div class="play-icon">▶</div></div>
+        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma5.webm')"><img src="assets/calisma5.jpg" alt="Çalışma 5"><div class="play-icon">▶</div></div>
+        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma6.webm')"><img src="assets/calisma6.jpg" alt="Çalışma 6"><div class="play-icon">▶</div></div>
+        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma7.webm')"><img src="assets/calisma7.jpg" alt="Çalışma 7"><div class="play-icon">▶</div></div>
+        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma8.webm')"><img src="assets/calisma8.jpg" alt="Çalışma 8"><div class="play-icon">▶</div></div>
+        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma9.webm')"><img src="assets/calisma9.jpg" alt="Çalışma 9"><div class="play-icon">▶</div></div>
+        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma10.webm')"><img src="assets/calisma10.jpg" alt="Çalışma 10"><div class="play-icon">▶</div></div>
+        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma11.webm')"><img src="assets/calisma11.jpg" alt="Çalışma 11"><div class="play-icon">▶</div></div>
+        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma12.webm')"><img src="assets/calisma12.jpg" alt="Çalışma 12"><div class="play-icon">▶</div></div>
+        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma13.webm')"><img src="assets/calisma13.jpg" alt="Çalışma 13"><div class="play-icon">▶</div></div>
+        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma14.webm')"><img src="assets/calisma14.jpg" alt="Çalışma 14"><div class="play-icon">▶</div></div>
+        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma15.webm')"><img src="assets/calisma15.jpg" alt="Çalışma 15"><div class="play-icon">▶</div></div>
+        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma16.webm')"><img src="assets/calisma16.jpg" alt="Çalışma 16"><div class="play-icon">▶</div></div>
+        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma17.webm')"><img src="assets/calisma17.jpg" alt="Çalışma 17"><div class="play-icon">▶</div></div>
+        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma18.webm')"><img src="assets/calisma18.jpg" alt="Çalışma 18"><div class="play-icon">▶</div></div>
+        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma19.webm')"><img src="assets/calisma19.jpg" alt="Çalışma 19"><div class="play-icon">▶</div></div>
+        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma20.webm')"><img src="assets/calisma20.jpg" alt="Çalışma 20"><div class="play-icon">▶</div></div>
+        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma21.webm')"><img src="assets/calisma21.jpg" alt="Çalışma 21"><div class="play-icon">▶</div></div>
+        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma22.webm')"><img src="assets/calisma22.jpg" alt="Çalışma 22"><div class="play-icon">▶</div></div>
+        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma23.webm')"><img src="assets/calisma23.jpg" alt="Çalışma 23"><div class="play-icon">▶</div></div>
+        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma24.webm')"><img src="assets/calisma24.jpg" alt="Çalışma 24"><div class="play-icon">▶</div></div>
+        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma25.webm')"><img src="assets/calisma25.jpg" alt="Çalışma 25"><div class="play-icon">▶</div></div>
     </div>
 </section>
 
@@ -657,8 +664,15 @@
             <option value="21:00">21:00</option>
             <option value="22:00">22:00</option>
         </select>
-        
+
         <button onclick="randevuOlustur()" class="modal-submit-btn">Onayla ve Randevu Al</button>
+    </div>
+</div>
+
+<div id="lightboxModal" class="modal" onclick="closeLightbox(event)">
+    <span class="close-lightbox" onclick="closeLightbox(event)">×</span>
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+        <video id="lightboxVideo" controls><source src="" type="video/webm"></video>
     </div>
 </div>
 
@@ -719,24 +733,6 @@
             });
         });
         
-        const subCall = document.getElementById('sub-call');
-        const subWp = document.getElementById('sub-wp');
-        const subRandevu = document.getElementById('sub-randevu');
-        let toggleState = false;
-
-        setInterval(() => {
-            subCall.style.opacity = '0'; subWp.style.opacity = '0'; subRandevu.style.opacity = '0';
-            setTimeout(() => {
-                toggleState = !toggleState;
-                if(toggleState) {
-                    subCall.innerText = "Malatya Berberini Ara"; subWp.innerText = "7/24 Hızlı Destek"; subRandevu.innerText = "Tarih ve Saat Seçin";
-                } else {
-                    subCall.innerText = "Saç Stilini Konuşalım"; subWp.innerText = "Berberine Mesaj Yaz"; subRandevu.innerText = "Koltuğunu Ayırt";
-                }
-                subCall.style.opacity = '0.9'; subWp.style.opacity = '0.9'; subRandevu.style.opacity = '0.9';
-            }, 400); 
-        }, 3000); 
-
         const texts = document.querySelectorAll('.anim-text');
         if(texts.length > 0) {
             let currentIndex = 0;
@@ -787,24 +783,6 @@
             });
         }
 
-        // Timing Stratejisi: Sırayla ön yükleme (Lazy Loading)
-        setTimeout(() => {
-            const vid1 = document.getElementById('v-calisma1');
-            if(vid1) vid1.setAttribute('preload', 'auto');
-        }, 5000);
-
-        setTimeout(() => {
-            const vid2 = document.getElementById('v-calisma2');
-            if(vid2) vid2.setAttribute('preload', 'auto');
-        }, 6000);
-
-        setTimeout(() => {
-            const deferredVideos = document.querySelectorAll('.delayed-video');
-            deferredVideos.forEach(video => {
-                video.setAttribute('preload', 'auto');
-            });
-        }, 8000);
-
         document.body.addEventListener('click', function ilkTiklamaTamEkran() {
             let doc = window.document; let docEl = doc.documentElement;
             let requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
@@ -831,6 +809,29 @@
         }
     }
     function closeModal() { document.getElementById('randevuModal').classList.remove('show'); }
+
+    function openLightbox(videoSrc) {
+        const modal = document.getElementById('lightboxModal');
+        const video = document.getElementById('lightboxVideo');
+        video.src = videoSrc;
+        modal.classList.add('show');
+        video.play().catch(e => console.log("Otomatik oynatma engellendi: " + e));
+    }
+
+    function closeLightbox(event) {
+        if (event) {
+            const targetId = event.target.id;
+            const targetClass = event.target.className;
+            if (targetId !== 'lightboxModal' && targetClass !== 'close-lightbox') {
+                return;
+            }
+        }
+        const modal = document.getElementById('lightboxModal');
+        const video = document.getElementById('lightboxVideo');
+        video.pause();
+        video.src = "";
+        modal.classList.remove('show');
+    }
 
     function randevuOlustur() {
         const isim = document.getElementById('r-isim').value.trim();
@@ -923,7 +924,7 @@
     }
 
     window.onclick = function(event) {
-        const modal = document.getElementById('randevuModal');
-        if (event.target === modal) { closeModal(); }
+        const randevuModal = document.getElementById('randevuModal');
+        if (event.target === randevuModal) { closeModal(); }
     }
 </script></body></html>
