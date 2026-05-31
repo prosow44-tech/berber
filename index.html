@@ -208,9 +208,9 @@
         transform: translateX(-50%) scale(0.7);
     }
     
-    .neon-blue { color: #00f3ff; text-shadow: 0 0 10px rgba(0, 243, 255, 0.8); }
-    .neon-pink { color: #ff00ea; text-shadow: 0 0 10px rgba(255, 0, 234, 0.8); }
-    .neon-yellow { color: #ffea00; text-shadow: 0 0 10px rgba(255, 234, 0, 0.8); }
+    .neon-red { color: #ff6b6b; text-shadow: 0 0 8px rgba(255, 107, 107, 0.6); }
+    .neon-white { color: #ffffff; text-shadow: 0 0 8px rgba(255, 255, 255, 0.6); }
+    .neon-blue { color: #4dabf7; text-shadow: 0 0 8px rgba(77, 171, 247, 0.6); }
 
     .btn-container { z-index: 100; width: 90%; max-width: 650px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px; margin: 0 auto; position: relative; }
     .top-btns { display: flex; gap: 20px; width: 100%; }
@@ -499,9 +499,10 @@
     </video>
     
     <div class="anim-container">
-        <div class="anim-text">KLASİK DEĞİL, <span class="neon-blue">İZ BIRAKAN</span></div>
-        <div class="anim-text">TARZINI <span class="neon-pink">YENİDEN YARAT</span></div>
-        <div class="anim-text">KUSURSUZ ÇİZGİLER, <span class="neon-yellow">NET DURUŞ</span></div>
+        <div class="anim-text">Tarzınız <span class="neon-red">Farkınız</span> <span class="neon-white">Olsun</span></div>
+        <div class="anim-text"><span class="neon-blue">Tarzın Varsa</span> Gerisi Detay</div>
+        <div class="anim-text">Makas Tutan Çok <span class="neon-red">Tarz Yaratan</span> <span class="neon-white">Az</span></div>
+        <div class="anim-text"><span class="neon-blue">Net Çizgi</span> Temiz İş</div>
     </div>
 
     <div class="btn-container">
@@ -662,7 +663,7 @@
 </div>
 
 <script>
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyi4G993ruzT7Ex8zm1jJNnJEHet1VJR4gJ0ipvlgNbYJXrGhvGG9T_JCoVNV8-MYvU/exec";
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzNp0VuHAzi1btrRm0D0eboP90cuKNYRMaw4whUzHd3ZE9HFo-NOMsJqdhcIMy5lYWG/exec";
 
     document.addEventListener("DOMContentLoaded", function() {
         const tarihInput = document.getElementById('r-tarih');
@@ -681,7 +682,6 @@
             const anlikZaman = new Date();
             const suAnkiSaatStr = String(anlikZaman.getHours()).padStart(2, '0') + ":" + String(anlikZaman.getMinutes()).padStart(2, '0');
             
-            // Tüm saatleri sıfırla ve GEÇMİŞ SAAT kontrolü yap
             for (let i = 1; i < saatSelect.options.length; i++) {
                 let optValue = saatSelect.options[i].value;
                 saatSelect.options[i].disabled = false;
@@ -807,7 +807,6 @@
         document.getElementById('randevuModal').classList.add('show'); 
         document.getElementById('error-message').style.display = 'none';
         
-        // Modal açıldığında tarihi tekrar kontrol edip geçmiş saatleri kapatır
         const tarihInput = document.getElementById('r-tarih');
         if(tarihInput.value) {
             tarihInput.dispatchEvent(new Event('change'));
@@ -865,7 +864,6 @@
                 btn.innerText = originalText;
                 btn.disabled = false;
                 
-                // Formu tekrar temizlemek yerine mevcut günü tekrar sorgulayıp dolu saati disable yapalım
                 document.getElementById('r-tarih').dispatchEvent(new Event('change'));
                 
                 setTimeout(() => {
@@ -895,9 +893,14 @@
         })
         .catch(error => {
             console.error("Bağlantı Hatası:", error);
-            alert("Sunucuya ulaşılamadı. Lütfen internet bağlantınızı kontrol edip tekrar deneyin.");
+            errorText.innerHTML = "Sunucuya ulaşılamadı. Lütfen internet bağlantınızı veya yetkilendirme ayarlarınızı kontrol edip tekrar deneyin.";
+            errorBanner.style.display = 'flex';
             btn.innerText = originalText;
             btn.disabled = false;
+            
+            setTimeout(() => {
+                errorBanner.style.display = 'none';
+            }, 12000);
         });
     }
 
