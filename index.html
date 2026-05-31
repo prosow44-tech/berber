@@ -24,6 +24,9 @@
         background-color: var(--dark); 
         color: #fff; 
         overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
     }
 
     .stars {
@@ -154,7 +157,7 @@
         left: 50%; 
         transform: translateX(-50%); 
         width: 100%; 
-        max-width: 1200px; /* Orantılı genişlik ayarı */
+        max-width: 1200px; 
         height: 100%; 
         object-fit: cover; 
         z-index: -1; 
@@ -205,7 +208,6 @@
         transform: translateX(-50%) scale(0.7);
     }
     
-    /* Orijinal Slogan Renkleri */
     .neon-blue { color: #00f3ff; text-shadow: 0 0 10px rgba(0, 243, 255, 0.8); }
     .neon-pink { color: #ff00ea; text-shadow: 0 0 10px rgba(255, 0, 234, 0.8); }
     .neon-yellow { color: #ffea00; text-shadow: 0 0 10px rgba(255, 234, 0, 0.8); }
@@ -316,6 +318,7 @@
         color: #888;
         font-size: 0.9rem;
         box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+        margin-top: auto;
     }
     footer p { margin: 5px 0; }
     footer span { color: var(--gold); font-weight: 600; }
@@ -605,7 +608,7 @@
         
         <div id="error-message" class="error-banner">
             <span class="icon">❌</span>
-            <div>Randevu Saati Doludur.<br>Lütfen Farklı Bir Saat veya Gün Seçiniz.</div>
+            <div id="error-text">Randevu Saati Doludur.<br>Lütfen Farklı Bir Saat veya Gün Seçiniz.</div>
         </div>
 
         <label>Adınız Soyadınız:</label>
@@ -633,7 +636,7 @@
         </select>
         
         <label>Tarih Seçin:</label>
-        <input type="date" id="r-tarih">
+        <input type="date" id="r-tarih" onclick="this.showPicker()">
         
         <label>Saat Seçin:</label>
         <select id="r-saat">
@@ -667,15 +670,27 @@
         const yyyy = bugun.getFullYear();
         const mm = String(bugun.getMonth() + 1).padStart(2, '0');
         const dd = String(bugun.getDate()).padStart(2, '0');
-        tarihInput.min = `${yyyy}-${mm}-${dd}`;
+        const bugunTarihStr = `${yyyy}-${mm}-${dd}`;
+        
+        tarihInput.min = bugunTarihStr;
         
         tarihInput.addEventListener('change', function() {
             const secilenTarih = this.value;
             const saatSelect = document.getElementById('r-saat');
             
+            const anlikZaman = new Date();
+            const suAnkiSaatStr = String(anlikZaman.getHours()).padStart(2, '0') + ":" + String(anlikZaman.getMinutes()).padStart(2, '0');
+            
+            // Tüm saatleri sıfırla ve GEÇMİŞ SAAT kontrolü yap
             for (let i = 1; i < saatSelect.options.length; i++) {
+                let optValue = saatSelect.options[i].value;
                 saatSelect.options[i].disabled = false;
-                saatSelect.options[i].text = saatSelect.options[i].value;
+                saatSelect.options[i].text = optValue;
+
+                if (secilenTarih === bugunTarihStr && optValue <= suAnkiSaatStr) {
+                    saatSelect.options[i].disabled = true;
+                    saatSelect.options[i].text = optValue + " (GEÇTİ)";
+                }
             }
 
             if(!secilenTarih) return;
@@ -771,6 +786,15 @@
                 video.play().catch(e => {});
             });
         }
+
+        document.body.addEventListener('click', function ilkTiklamaTamEkran() {
+            let doc = window.document; let docEl = doc.documentElement;
+            let requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+            if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+                if (requestFullScreen) { requestFullScreen.call(docEl).catch(err => { console.log(`Tam ekran başlatılamadı: ${err.message}`); }); }
+            }
+            document.body.removeEventListener('click', ilkTiklamaTamEkran);
+        }, { once: true });
     });
 
     pannellum.viewer('panorama', {
@@ -782,6 +806,12 @@
     function openModal() { 
         document.getElementById('randevuModal').classList.add('show'); 
         document.getElementById('error-message').style.display = 'none';
+        
+        // Modal açıldığında tarihi tekrar kontrol edip geçmiş saatleri kapatır
+        const tarihInput = document.getElementById('r-tarih');
+        if(tarihInput.value) {
+            tarihInput.dispatchEvent(new Event('change'));
+        }
     }
     function closeModal() { document.getElementById('randevuModal').classList.remove('show'); }
 
@@ -792,6 +822,7 @@
         const tarih = document.getElementById('r-tarih').value;
         const saat = document.getElementById('r-saat').value;
         const errorBanner = document.getElementById('error-message');
+        const errorText = document.getElementById('error-text');
 
         errorBanner.style.display = 'none';
 
@@ -829,9 +860,13 @@
         .then(response => response.json())
         .then(result => {
             if(result.durum === "hata") {
+                errorText.innerHTML = result.mesaj + "<br>Lütfen Farklı Bir Saat veya Gün Seçiniz.";
                 errorBanner.style.display = 'flex';
                 btn.innerText = originalText;
                 btn.disabled = false;
+                
+                // Formu tekrar temizlemek yerine mevcut günü tekrar sorgulayıp dolu saati disable yapalım
+                document.getElementById('r-tarih').dispatchEvent(new Event('change'));
                 
                 setTimeout(() => {
                     errorBanner.style.display = 'none';
