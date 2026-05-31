@@ -103,12 +103,15 @@
         width: 100%; 
         background: rgba(10, 10, 10, 0.4); 
         backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
-        padding: 15px 0; text-align: center; 
+        padding: 10px 0; text-align: center; 
         border: 1px solid rgba(197, 160, 89, 0.3);
         border-radius: 15px; margin-top: 10px;
         box-shadow: 0 5px 20px rgba(0,0,0,0.5);
         position: relative;
         overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     
     nav::after {
@@ -126,9 +129,20 @@
         100% { background-position: 0% 0; }
     }
 
-    nav a { color: #fff; text-decoration: none; margin: 0 15px; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
+    nav a { color: #fff; text-decoration: none; margin: 0 12px; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
     nav a:hover { color: var(--gold); }
     
+    .nav-logo {
+        height: 45px;
+        width: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 0 15px;
+        border: 2px solid var(--gold);
+        box-shadow: 0 0 10px rgba(197, 160, 89, 0.3);
+        background: var(--dark);
+    }
+
     .mobile-only { display: none; }
 
     .hero { position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: hidden; box-sizing: border-box; }
@@ -464,7 +478,8 @@
         .header-wrapper { width: 95%; }
         .top-status-bar { font-size: 0.7rem; padding: 6px 15px; border-radius: 12px; }
         nav { padding: 12px 0; margin-top: 8px; border-radius: 12px; }
-        nav a { display: inline-block; margin: 0 10px; font-size: 0.8rem; }
+        nav a { display: inline-block; margin: 0 8px; font-size: 0.8rem; }
+        .nav-logo { height: 35px; width: 35px; margin: 0 5px; }
         .hero { padding-top: 0; justify-content: center; }
         
         .anim-text.text-active { top: 14%; font-size: 1.5rem; }
@@ -509,6 +524,9 @@
         <a href="#anasayfa" class="hide-on-mobile">Anasayfa</a>
         <a href="https://www.google.com/maps/search/?api=1&query=İstiklal,+Atmalı+Sok.+15+b,+44050+Battalgazi+/+Malatya" target="_blank" class="mobile-only">Yol Tarifi</a>
         <a href="javascript:void(0);" onclick="openModal()" class="mobile-only">Randevu Al</a>
+        
+        <img src="assets/logo.jpg" alt="Malatya Berber Logo" class="nav-logo">
+        
         <a href="#fiyatlar" class="hide-on-mobile">Fiyat Listesi</a>
         <a href="#galeri">Galeri</a>
         <a href="#sanal-tur" class="hide-on-mobile">360° Gezinti</a>
@@ -624,7 +642,7 @@
         </a>
     </div>
     <div class="map-container">
-        <iframe src="https://www.google.com/maps?q=İstiklal,+Atmalı+Sok.+15+b,+44050+Battalgazi+/+Malatya&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src="https://maps.google.com/maps?q=İstiklal,%20Atmalı%20Sok.%2015%20b,%2044050%20Battalgazi%20/%20Malatya&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 </section>
 
