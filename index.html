@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18199647209"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-18199647209');
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Malatya Berber - Tarzınız Farkınız Olsun. Profesyonel saç ve sakal tasarımı, cilt bakımı ve kişisel imaj danışmanlığı.">
-<meta name="keywords" content="Malatya berber, erkek kuaförü, saç kesimi, Malatya saç tasarımı, Malatya VIP berber, en iyi berber Malatya, sakal şekillendirme, cilt bakımı erkek, keratin bakım erkek, damat tıraşı Malatya, saç boyama erkek, çocuk tıraşı Malatya, trend saç modelleri erkek, Battalgazi berber, Yeşilyurt berber, saç stili uzmanı, kaliteli erkek kuaförü, profesyonel berber, saç bakım uzmanı, erkek saç trendleri, stil danışmanı berber, Malatya lüks erkek kuaförü">
+<meta name="keywords" content="Malatya Battalgazi Erkek Kuaförü, Malatya Yeşilyurt Erkek Kuaförü, Malatya Battalgazi berber, Malatya Yeşilyurt berber, 5 yıldız Malatya Berber, Berber, Malatya berber, erkek kuaförü, saç kesimi, Malatya saç tasarımı, Malatya VIP berber, en iyi berber Malatya, sakal şekillendirme, cilt bakımı erkek, keratin bakım erkek, damat tıraşı Malatya, saç boyama erkek, çocuk tıraşı Malatya, trend saç modelleri erkek, saç stili uzmanı, kaliteli erkek kuaförü, profesyonel berber, lüks erkek kuaförü">
 <title>Berber | Tarzın Adresi</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
@@ -254,34 +263,46 @@
         grid-template-columns: repeat(3, 1fr); 
         gap: 20px; 
     }
-    .gallery-video { 
-        width: 100%; 
-        height: 350px; 
-        object-fit: cover; 
-        opacity: 0.8; 
-        transition: 0.3s; 
-        background: #000; 
-        border-radius: 12px; 
-        box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-    }
-    .gallery-video:hover { opacity: 1; transform: scale(1.02); }
-
-    .lightbox-thumbnail {
+    .video-item {
         position: relative;
-        cursor: pointer;
         border-radius: 12px;
         overflow: hidden;
         box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         background: #000;
         height: 350px;
+        cursor: pointer;
     }
-    .lightbox-thumbnail img {
+    .video-item video {
         width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.3s;
     }
-    .lightbox-thumbnail:hover img { opacity: 1; transform: scale(1.02); }
-    .play-icon {
+    .video-item:hover video { opacity: 1; transform: scale(1.02); }
+    .video-item.is-playing video { opacity: 1; transform: scale(1); }
+    
+    .play-btn-overlay {
         position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-        font-size: 3rem; color: rgba(255,255,255,0.8); text-shadow: 0 2px 10px #000; pointer-events: none;
+        font-size: 2rem; color: rgba(255,255,255,0.4); pointer-events: none;
+        transition: 0.2s; text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    }
+    .video-item.is-playing .play-btn-overlay { display: none; }
+
+    .hidden-item {
+        display: none !important;
+    }
+
+    .load-more-container {
+        text-align: center;
+        margin-top: 40px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .load-more-btn {
+        height: 60px;
+        width: 250px;
+        font-size: 1rem;
+        border-radius: 30px;
+        flex: none;
     }
 
     .pano-container { width: 100%; height: 500px; background: #111; margin-bottom: 50px; border: 1px solid #333; border-radius: 10px; overflow: hidden; }
@@ -427,13 +448,6 @@
         font-weight: bold;
     }
 
-    .lightbox-content {
-        position: relative; width: 90%; max-width: 800px; background: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 0 30px rgba(0,0,0,0.9);
-    }
-    .lightbox-content video { width: 100%; height: auto; display: block; }
-    .close-lightbox { position: absolute; top: 15px; right: 25px; font-size: 40px; color: #fff; cursor: pointer; z-index: 2001; transition: 0.2s; }
-    .close-lightbox:hover { color: #d32f2f; }
-
     @media (max-width: 992px) {
         .anim-text { font-size: 2.2rem; }
         .hero { padding-top: 130px; }
@@ -465,7 +479,7 @@
         .title { font-size: 1.8rem; margin-bottom: 30px; }
         .price-list { grid-template-columns: 1fr; }
         .gallery-grid { grid-template-columns: 1fr; }
-        .lightbox-thumbnail { height: 250px; }
+        .video-item { height: 250px; }
         .pano-container { height: 300px; }
         .map-container iframe { height: 300px; }
         .modal-content { padding: 25px 20px; }
@@ -491,11 +505,11 @@
     </div>
     <nav id="navbar">
         <a href="#anasayfa" class="hide-on-mobile">Anasayfa</a>
-        <a href="https://www.google.com/maps/search/?api=1&query=İstiklal,+Atmalı+Sok.+15+b,+44050+Battalgazi+/+Malatya" target="_blank" class="mobile-only">Yol Tarifi</a>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=İstiklal,+Atmalı+Sok.+15+b,+44050+Battalgazi+/+Malatya" target="_blank" class="mobile-only">Yol Tarifi</a>
         <a href="#fiyatlar">Fiyat Listesi</a>
         <a href="#galeri">Galeri</a>
         <a href="#sanal-tur" class="hide-on-mobile">360° Gezinti</a>
-        <a href="https://www.google.com/maps/search/?api=1&query=İstiklal,+Atmalı+Sok.+15+b,+44050+Battalgazi+/+Malatya" target="_blank" class="hide-on-mobile">Yol Tarifi</a>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=İstiklal,+Atmalı+Sok.+15+b,+44050+Battalgazi+/+Malatya" target="_blank" class="hide-on-mobile">Yol Tarifi</a>
     </nav>
 </div>
 
@@ -555,33 +569,39 @@
 
 <section id="galeri" class="section">
     <h2 class="title">Çalışmalarımız</h2>
-    <div class="gallery-grid">
-        <video muted loop playsinline id="v-calisma1" class="gallery-video" poster="assets/calisma1.jpg"><source src="assets/calisma1.webm" type="video/webm"></video>
-        <video muted loop playsinline id="v-calisma2" class="gallery-video" poster="assets/calisma2.jpg"><source src="assets/calisma2.webm" type="video/webm"></video>
-        <video muted loop playsinline id="v-calisma3" class="gallery-video" poster="assets/calisma3.jpg"><source src="assets/calisma3.webm" type="video/webm"></video>
+    <div class="gallery-grid" id="galleryContainer">
+        <div class="video-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma1.webm" poster="assets/calisma1.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma2.webm" poster="assets/calisma2.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma3.webm" poster="assets/calisma3.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma4.webm" poster="assets/calisma4.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma5.webm" poster="assets/calisma5.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma6.webm" poster="assets/calisma6.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma7.webm" poster="assets/calisma7.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma8.webm" poster="assets/calisma8.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma9.webm" poster="assets/calisma9.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma10.webm" poster="assets/calisma10.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
         
-        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma4.webm')"><img src="assets/calisma4.jpg" alt="Çalışma 4"><div class="play-icon">▶</div></div>
-        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma5.webm')"><img src="assets/calisma5.jpg" alt="Çalışma 5"><div class="play-icon">▶</div></div>
-        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma6.webm')"><img src="assets/calisma6.jpg" alt="Çalışma 6"><div class="play-icon">▶</div></div>
-        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma7.webm')"><img src="assets/calisma7.jpg" alt="Çalışma 7"><div class="play-icon">▶</div></div>
-        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma8.webm')"><img src="assets/calisma8.jpg" alt="Çalışma 8"><div class="play-icon">▶</div></div>
-        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma9.webm')"><img src="assets/calisma9.jpg" alt="Çalışma 9"><div class="play-icon">▶</div></div>
-        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma10.webm')"><img src="assets/calisma10.jpg" alt="Çalışma 10"><div class="play-icon">▶</div></div>
-        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma11.webm')"><img src="assets/calisma11.jpg" alt="Çalışma 11"><div class="play-icon">▶</div></div>
-        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma12.webm')"><img src="assets/calisma12.jpg" alt="Çalışma 12"><div class="play-icon">▶</div></div>
-        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma13.webm')"><img src="assets/calisma13.jpg" alt="Çalışma 13"><div class="play-icon">▶</div></div>
-        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma14.webm')"><img src="assets/calisma14.jpg" alt="Çalışma 14"><div class="play-icon">▶</div></div>
-        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma15.webm')"><img src="assets/calisma15.jpg" alt="Çalışma 15"><div class="play-icon">▶</div></div>
-        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma16.webm')"><img src="assets/calisma16.jpg" alt="Çalışma 16"><div class="play-icon">▶</div></div>
-        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma17.webm')"><img src="assets/calisma17.jpg" alt="Çalışma 17"><div class="play-icon">▶</div></div>
-        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma18.webm')"><img src="assets/calisma18.jpg" alt="Çalışma 18"><div class="play-icon">▶</div></div>
-        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma19.webm')"><img src="assets/calisma19.jpg" alt="Çalışma 19"><div class="play-icon">▶</div></div>
-        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma20.webm')"><img src="assets/calisma20.jpg" alt="Çalışma 20"><div class="play-icon">▶</div></div>
-        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma21.webm')"><img src="assets/calisma21.jpg" alt="Çalışma 21"><div class="play-icon">▶</div></div>
-        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma22.webm')"><img src="assets/calisma22.jpg" alt="Çalışma 22"><div class="play-icon">▶</div></div>
-        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma23.webm')"><img src="assets/calisma23.jpg" alt="Çalışma 23"><div class="play-icon">▶</div></div>
-        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma24.webm')"><img src="assets/calisma24.jpg" alt="Çalışma 24"><div class="play-icon">▶</div></div>
-        <div class="lightbox-thumbnail" onclick="openLightbox('assets/calisma25.webm')"><img src="assets/calisma25.jpg" alt="Çalışma 25"><div class="play-icon">▶</div></div>
+        <div class="video-item hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma11.webm" poster="assets/calisma11.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma12.webm" poster="assets/calisma12.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma13.webm" poster="assets/calisma13.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma14.webm" poster="assets/calisma14.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma15.webm" poster="assets/calisma15.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma16.webm" poster="assets/calisma16.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma17.webm" poster="assets/calisma17.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma18.webm" poster="assets/calisma18.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma19.webm" poster="assets/calisma19.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma20.webm" poster="assets/calisma20.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma21.webm" poster="assets/calisma21.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma22.webm" poster="assets/calisma22.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma23.webm" poster="assets/calisma23.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma24.webm" poster="assets/calisma24.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma25.webm" poster="assets/calisma25.jpg" playsinline loop preload="none"></video><div class="play-btn-overlay">▶</div></div>
+    </div>
+    
+    <div class="load-more-container">
+        <button id="loadMoreBtn" class="glass-btn load-more-btn" onclick="loadMoreGallery()">
+            <span class="btn-text-main" style="font-size: 1rem;">DAHA FAZLA YÜKLE</span>
+        </button>
     </div>
 </section>
 
@@ -600,7 +620,7 @@
         </a>
     </div>
     <div class="map-container">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3143.080182442296!2d38.319722!3d38.354167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDIxJzE1LjAiTiAzOMKwMTknMTEuMCJF!5e0!3m2!1str!2str!4v1610000000000!5m2!1str!2str" allowfullscreen="" loading="lazy"></iframe>
+        <iframe src="https://maps.google.com/maps?q=İstiklal,%20Atmalı%20Sok.%2015%20b,%2044050%20Battalgazi%20/%20Malatya&t=&z=16&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy"></iframe>
     </div>
 </section>
 
@@ -669,15 +689,26 @@
     </div>
 </div>
 
-<div id="lightboxModal" class="modal" onclick="closeLightbox(event)">
-    <span class="close-lightbox" onclick="closeLightbox(event)">×</span>
-    <div class="lightbox-content" onclick="event.stopPropagation()">
-        <video id="lightboxVideo" controls><source src="" type="video/webm"></video>
-    </div>
-</div>
-
 <script>
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyGx1ebKmAU_eb0ElTHbF20-ON0nblwrzthTJUDfYZr1NDW1599Phl0IslJech2v2S5/exec";
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxEMeLJsMM0IFiinTzv806XfcSR-tjibvOerDJYEwCRTF7qIXoVE_lyw9H6tLTrMZws/exec";
+
+    let visibleGalleryItems = 10;
+    
+    function loadMoreGallery() {
+        const items = document.querySelectorAll('#galleryContainer .video-item');
+        let shownThisTime = 0;
+        
+        for (let i = visibleGalleryItems; i < items.length && shownThisTime < 10; i++) {
+            items[i].classList.remove('hidden-item');
+            shownThisTime++;
+        }
+        
+        visibleGalleryItems += shownThisTime;
+        
+        if (visibleGalleryItems >= items.length) {
+            document.getElementById('loadMoreBtn').style.display = 'none';
+        }
+    }
 
     document.addEventListener("DOMContentLoaded", function() {
         const tarihInput = document.getElementById('r-tarih');
@@ -717,14 +748,34 @@
             .then(response => response.json())
             .then(doluSaatler => {
                 saatSelect.options[0].text = "Saat Seçiniz";
-                
                 if(doluSaatler && doluSaatler.length > 0) {
-                    for (let i = 1; i < saatSelect.options.length; i++) {
-                        if (doluSaatler.includes(saatSelect.options[i].value)) {
-                            saatSelect.options[i].disabled = true;
-                            saatSelect.options[i].text = saatSelect.options[i].value + " (DOLU)";
+                    doluSaatler.forEach(item => {
+                        let parts = (typeof item === 'string') ? item.split('|') : [];
+                        let rSaat = parts[0] || item.saat || item;
+                        let rIsim = parts[1] || item.isim || "";
+
+                        for (let i = 1; i < saatSelect.options.length; i++) {
+                            if (saatSelect.options[i].value === rSaat) {
+                                saatSelect.options[i].disabled = true;
+                                let maskText = "";
+                                
+                                if (rIsim) {
+                                    let ad = rIsim.trim().split(' ')[0];
+                                    if(ad.length > 2) {
+                                        let ilk = ad.charAt(0);
+                                        let son = ad.charAt(ad.length - 1);
+                                        let yildiz = "*".repeat(ad.length - 2);
+                                        maskText = ` - ${ilk}${yildiz}${son}`;
+                                    } else if (ad.length === 2) {
+                                        maskText = ` - ${ad.charAt(0)}*`;
+                                    } else {
+                                        maskText = ` - ${ad}`;
+                                    }
+                                }
+                                saatSelect.options[i].text = `${rSaat} (DOLU${maskText.toUpperCase()})`;
+                            }
                         }
-                    }
+                    });
                 }
             })
             .catch(error => {
@@ -753,34 +804,11 @@
                 if(belowIndex !== -1) {
                     texts[belowIndex].classList.add('text-below');
                 }
-                
                 if(exitIndex !== -1) {
                     texts[exitIndex].classList.add('text-exit');
                 }
 
             }, 3000); 
-        }
-
-        const videos = document.querySelectorAll('.gallery-video');
-        if ('IntersectionObserver' in window) {
-            const videoObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.play().catch(e => console.log("Otomatik oynatma engellendi:", e));
-                    } else {
-                        entry.target.pause();
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            videos.forEach(video => {
-                videoObserver.observe(video);
-            });
-        } else {
-            videos.forEach(video => {
-                video.autoplay = true;
-                video.play().catch(e => {});
-            });
         }
 
         document.body.addEventListener('click', function ilkTiklamaTamEkran() {
@@ -799,6 +827,23 @@
         "autoLoad": true, "autoRotate": -2, "showControls": true
     });
 
+    function toggleInlineVideo(el) {
+        const video = el.querySelector('video');
+        if (video.paused) {
+            document.querySelectorAll('.video-item video').forEach(v => {
+                if(v !== video && !v.paused) {
+                    v.pause();
+                    v.parentElement.classList.remove('is-playing');
+                }
+            });
+            video.play().catch(e => console.log("Oynatılamadı:", e));
+            el.classList.add('is-playing');
+        } else {
+            video.pause();
+            el.classList.remove('is-playing');
+        }
+    }
+
     function openModal() { 
         document.getElementById('randevuModal').classList.add('show'); 
         document.getElementById('error-message').style.display = 'none';
@@ -809,29 +854,6 @@
         }
     }
     function closeModal() { document.getElementById('randevuModal').classList.remove('show'); }
-
-    function openLightbox(videoSrc) {
-        const modal = document.getElementById('lightboxModal');
-        const video = document.getElementById('lightboxVideo');
-        video.src = videoSrc;
-        modal.classList.add('show');
-        video.play().catch(e => console.log("Otomatik oynatma engellendi: " + e));
-    }
-
-    function closeLightbox(event) {
-        if (event) {
-            const targetId = event.target.id;
-            const targetClass = event.target.className;
-            if (targetId !== 'lightboxModal' && targetClass !== 'close-lightbox') {
-                return;
-            }
-        }
-        const modal = document.getElementById('lightboxModal');
-        const video = document.getElementById('lightboxVideo');
-        video.pause();
-        video.src = "";
-        modal.classList.remove('show');
-    }
 
     function randevuOlustur() {
         const isim = document.getElementById('r-isim').value.trim();
