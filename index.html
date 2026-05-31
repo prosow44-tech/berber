@@ -494,6 +494,40 @@
         font-size: 0.7rem;
     }
     .auto-date-btn:hover { transform: scale(1.05); }
+    
+    .auto-time-btn {
+        background: rgba(10, 10, 10, 0.95);
+        border: 2px solid transparent;
+        color: #fff;
+        padding: 6px 12px;
+        border-radius: 50px;
+        font-size: 0.7rem;
+        font-weight: 800;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 0 10px rgba(0, 191, 255, 0.4), inset 0 0 5px rgba(0, 191, 255, 0.4);
+        border-color: rgba(0, 191, 255, 0.6);
+        font-family: 'Montserrat', sans-serif;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        outline: none;
+    }
+    .auto-time-btn::before {
+        content: '⌚';
+        background: #00bfff;
+        color: #000;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.7rem;
+    }
+    .auto-time-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(0, 191, 255, 0.8); }
+
+    .relative-date-text { color: var(--gold); font-size: 0.8rem; margin-left: 8px; font-weight: 800; letter-spacing: 0.5px; }
 
     @media (max-width: 992px) {
         .anim-text { font-size: 2.2rem; }
@@ -533,7 +567,7 @@
         .modal-content { padding: 25px 20px; }
         .success-toast { width: 90%; flex-direction: column; text-align: center; border-radius: 20px; font-size: 0.85rem; padding: 20px; }
         .success-toast .icon { margin-bottom: 5px; }
-        .auto-date-btn { font-size: 0.65rem; padding: 5px 10px; }
+        .auto-date-btn, .auto-time-btn { font-size: 0.65rem; padding: 5px 10px; }
     }
 </style></head><body>
 
@@ -718,12 +752,15 @@
         </select>
         
         <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: -5px;">
-            <label style="margin-bottom: 0;">Tarih Seçin:</label>
+            <label style="margin-bottom: 0;">Tarih Seçin: <span id="date-relative-text" class="relative-date-text"></span></label>
             <button type="button" id="autoDateBtn" class="auto-date-btn" onclick="findNearestDate()">En Yakın Tarihi Seç</button>
         </div>
         <input type="date" id="r-tarih" onclick="this.showPicker()">
         
-        <label>Saat Seçin:</label>
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: -5px; margin-top: 5px;">
+            <label style="margin-bottom: 0;">Saat Seçin:</label>
+            <button type="button" class="auto-time-btn" onclick="selectNearestTime()">En Yakın Saati Seç</button>
+        </div>
         <select id="r-saat">
             <option value="" disabled selected>Saat Seçiniz</option>
             <option value="09:00">09:00</option>
@@ -767,7 +804,6 @@
         }
     }
 
-    // OTOMATİK TARİH BULMA FONKSİYONU
     function findNearestDate() {
         const btn = document.getElementById('autoDateBtn');
         const originalText = "En Yakın Tarihi Seç";
@@ -780,7 +816,7 @@
             if(data && data.tarih) {
                 const tarihInput = document.getElementById('r-tarih');
                 tarihInput.value = data.tarih;
-                tarihInput.dispatchEvent(new Event('change')); // Seçili günün saatlerini kontrol ettir
+                tarihInput.dispatchEvent(new Event('change'));
                 
                 btn.innerHTML = "Bulundu";
                 setTimeout(() => { 
@@ -801,6 +837,34 @@
         });
     }
 
+    function selectNearestTime() {
+        const saatSelect = document.getElementById('r-saat');
+        const tarihInput = document.getElementById('r-tarih');
+        
+        if (!tarihInput.value) {
+            alert("Lütfen önce bir tarih seçin veya 'En Yakın Tarihi Seç' butonuna tıklayın.");
+            return;
+        }
+        
+        if (saatSelect.options[0].text.includes("bekliyor") || saatSelect.options[0].text.includes("ediliyor")) {
+            alert("Saatler şu an kontrol ediliyor, lütfen bir saniye bekleyip tekrar deneyin.");
+            return;
+        }
+
+        let found = false;
+        for (let i = 1; i < saatSelect.options.length; i++) {
+            if (!saatSelect.options[i].disabled) {
+                saatSelect.selectedIndex = i;
+                found = true;
+                break;
+            }
+        }
+        
+        if (!found) {
+            alert("Seçili tarihte boş saat bulunamadı.");
+        }
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
         const tarihInput = document.getElementById('r-tarih');
         const bugun = new Date();
@@ -812,9 +876,30 @@
         tarihInput.min = bugunTarihStr;
         
         tarihInput.addEventListener('change', function() {
-            const secilenTarih = this.value;
+            const secilenTarihStr = this.value;
             const saatSelect = document.getElementById('r-saat');
+            const relativeTextSpan = document.getElementById('date-relative-text');
             
+            if(!secilenTarihStr) {
+                relativeTextSpan.innerText = "";
+                return;
+            }
+
+            // Göreli tarih hesaplama (Bugün, Yarın, X Gün Sonra)
+            const secilenTarih = new Date(secilenTarihStr);
+            const bugunGece = new Date();
+            bugunGece.setHours(0,0,0,0);
+            secilenTarih.setHours(0,0,0,0);
+            
+            const farkZaman = secilenTarih - bugunGece;
+            const farkGun = Math.round(farkZaman / (1000 * 60 * 60 * 24));
+            
+            if(farkGun === 0) relativeTextSpan.innerText = "(Bugün)";
+            else if(farkGun === 1) relativeTextSpan.innerText = "(Yarın)";
+            else if(farkGun > 1) relativeTextSpan.innerText = `(${farkGun} Gün Sonra)`;
+            else relativeTextSpan.innerText = "";
+
+            // Saatleri kontrol etme mantığı
             const anlikZaman = new Date();
             const suAnkiSaatStr = String(anlikZaman.getHours()).padStart(2, '0') + ":" + String(anlikZaman.getMinutes()).padStart(2, '0');
             
@@ -823,17 +908,15 @@
                 saatSelect.options[i].disabled = false;
                 saatSelect.options[i].text = optValue;
 
-                if (secilenTarih === bugunTarihStr && optValue <= suAnkiSaatStr) {
+                if (secilenTarihStr === bugunTarihStr && optValue <= suAnkiSaatStr) {
                     saatSelect.options[i].disabled = true;
                     saatSelect.options[i].text = optValue + " (GEÇTİ)";
                 }
             }
 
-            if(!secilenTarih) return;
-
             saatSelect.options[0].text = "Dolu saatler kontrol ediliyor...";
             
-            const url = WEB_APP_URL + "?islem=saatSorgula&tarih=" + secilenTarih;
+            const url = WEB_APP_URL + "?islem=saatSorgula&tarih=" + secilenTarihStr;
 
             fetch(url)
             .then(response => response.json())
