@@ -176,11 +176,11 @@
         text-transform: uppercase; 
         letter-spacing: 2px; 
         width: 100%; 
-        text-shadow: 0 5px 15px rgba(0,0,0,0.9);
         text-align: center;
         left: 50%;
         transform: translateX(-50%);
         top: 5%;
+        text-shadow: 0 4px 15px rgba(0,0,0,0.9);
     }
     
     .anim-text.text-active { 
@@ -201,9 +201,9 @@
         transform: translateX(-50%) scale(0.7);
     }
     
-    .neon-red { color: #ff1744; text-shadow: 0 0 10px #ff1744, 0 0 20px #ff1744; }
-    .neon-white { color: #ffffff; text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff; }
-    .neon-blue { color: #00e5ff; text-shadow: 0 0 10px #00e5ff, 0 0 20px #00e5ff; }
+    .solid-red { color: #d32f2f; }
+    .solid-white { color: #ffffff; }
+    .solid-blue { color: #4dabf7; }
 
     .btn-container { z-index: 100; width: 90%; max-width: 650px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px; margin: 0 auto; position: relative; }
     .top-btns { display: flex; gap: 20px; width: 100%; }
@@ -507,11 +507,12 @@
     </div>
     <nav id="navbar">
         <a href="#anasayfa" class="hide-on-mobile">Anasayfa</a>
-        <a href="https://maps.app.goo.gl/kX3bVfRzS1vBfWp19" target="_blank" class="mobile-only">Yol Tarifi</a>
-        <a href="#fiyatlar">Fiyat Listesi</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=İstiklal,+Atmalı+Sok.+15+b,+44050+Battalgazi+/+Malatya" target="_blank" class="mobile-only">Yol Tarifi</a>
+        <a href="javascript:void(0);" onclick="openModal()" class="mobile-only">Randevu Al</a>
+        <a href="#fiyatlar" class="hide-on-mobile">Fiyat Listesi</a>
         <a href="#galeri">Galeri</a>
         <a href="#sanal-tur" class="hide-on-mobile">360° Gezinti</a>
-        <a href="https://maps.app.goo.gl/kX3bVfRzS1vBfWp19" target="_blank" class="hide-on-mobile">Yol Tarifi</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=İstiklal,+Atmalı+Sok.+15+b,+44050+Battalgazi+/+Malatya" target="_blank" class="hide-on-mobile">Yol Tarifi</a>
     </nav>
 </div>
 
@@ -521,10 +522,10 @@
     </video>
     
     <div class="anim-container">
-        <div class="anim-text">Tarzınız <span class="neon-red">Farkınız</span> <span class="neon-white">Olsun</span></div>
-        <div class="anim-text"><span class="neon-blue">Tarzın Varsa</span> Gerisi Detay</div>
-        <div class="anim-text">Makas Tutan Çok <span class="neon-red">Tarz Yaratan</span> <span class="neon-white">Az</span></div>
-        <div class="anim-text"><span class="neon-blue">Net Çizgi</span> Temiz İş</div>
+        <div class="anim-text">Tarzınız <span class="solid-red">Farkınız</span> <span class="solid-white">Olsun</span></div>
+        <div class="anim-text"><span class="solid-blue">Tarzın Varsa</span> Gerisi Detay</div>
+        <div class="anim-text">Makas Tutan Çok <span class="solid-red">Tarz Yaratan</span> <span class="solid-white">Az</span></div>
+        <div class="anim-text"><span class="solid-blue">Net Çizgi</span> Temiz İş</div>
     </div>
 
     <div class="btn-container">
@@ -623,7 +624,7 @@
         </a>
     </div>
     <div class="map-container">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3148.919131652079!2d38.3304565!3d38.351239!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4076371c1b12b2fb%3A0xc6222cc2c13d33ea!2s%C4%B0stiklal%2C%20Atmal%C4%B1%20Sk.%2015%20B%2C%2044050%20Battalgazi%2FMalatya!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src="https://www.google.com/maps?q=İstiklal,+Atmalı+Sok.+15+b,+44050+Battalgazi+/+Malatya&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 </section>
 
