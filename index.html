@@ -464,6 +464,37 @@
         font-weight: bold;
     }
 
+    .auto-date-btn {
+        background: rgba(10, 10, 10, 0.95);
+        border: 2px solid transparent;
+        color: #fff;
+        padding: 6px 12px;
+        border-radius: 50px;
+        font-size: 0.7rem;
+        font-weight: 800;
+        cursor: pointer;
+        transition: all 0.3s;
+        animation: rgb-barber-glow 3s infinite linear;
+        font-family: 'Montserrat', sans-serif;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        outline: none;
+    }
+    .auto-date-btn::before {
+        content: '✓';
+        background: #00e676;
+        color: #000;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.7rem;
+    }
+    .auto-date-btn:hover { transform: scale(1.05); }
+
     @media (max-width: 992px) {
         .anim-text { font-size: 2.2rem; }
         .hero { padding-top: 130px; }
@@ -502,6 +533,7 @@
         .modal-content { padding: 25px 20px; }
         .success-toast { width: 90%; flex-direction: column; text-align: center; border-radius: 20px; font-size: 0.85rem; padding: 20px; }
         .success-toast .icon { margin-bottom: 5px; }
+        .auto-date-btn { font-size: 0.65rem; padding: 5px 10px; }
     }
 </style></head><body>
 
@@ -522,7 +554,7 @@
     </div>
     <nav id="navbar">
         <a href="#anasayfa" class="hide-on-mobile">Anasayfa</a>
-        <a href="https://www.google.com/maps/search/?api=1&query=İstiklal,+Atmalı+Sok.+15+b,+44050+Battalgazi+/+Malatya" target="_blank" class="mobile-only">Yol Tarifi</a>
+        <a href="https://maps.app.goo.gl/kX3bVfRzS1vBfWp19" target="_blank" class="mobile-only">Yol Tarifi</a>
         <a href="javascript:void(0);" onclick="openModal()" class="mobile-only">Randevu Al</a>
         
         <img src="assets/logo.jpg" alt="Malatya Berber Logo" class="nav-logo">
@@ -530,7 +562,7 @@
         <a href="#fiyatlar" class="hide-on-mobile">Fiyat Listesi</a>
         <a href="#galeri">Galeri</a>
         <a href="#sanal-tur" class="hide-on-mobile">360° Gezinti</a>
-        <a href="https://www.google.com/maps/search/?api=1&query=İstiklal,+Atmalı+Sok.+15+b,+44050+Battalgazi+/+Malatya" target="_blank" class="hide-on-mobile">Yol Tarifi</a>
+        <a href="https://maps.app.goo.gl/kX3bVfRzS1vBfWp19" target="_blank" class="hide-on-mobile">Yol Tarifi</a>
     </nav>
 </div>
 
@@ -642,7 +674,7 @@
         </a>
     </div>
     <div class="map-container">
-        <iframe src="https://maps.google.com/maps?q=İstiklal,%20Atmalı%20Sok.%2015%20b,%2044050%20Battalgazi%20/%20Malatya&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3135.2536762512136!2d38.318047000000004!3d38.356499!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x407636e053a47385%3A0xc6cba47eeb628172!2sSamed%20A%C4%9Fca%20Erkek%20Kuaf%C3%B6r%C3%BC!5e0!3m2!1str!2str!4v1716900000000!5m2!1str!2str" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 </section>
 
@@ -685,7 +717,10 @@
             <option value="Damat Traşı">Damat Traşı - 3000 TL</option>
         </select>
         
-        <label>Tarih Seçin:</label>
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: -5px;">
+            <label style="margin-bottom: 0;">Tarih Seçin:</label>
+            <button type="button" id="autoDateBtn" class="auto-date-btn" onclick="findNearestDate()">En Yakın Tarihi Seç</button>
+        </div>
         <input type="date" id="r-tarih" onclick="this.showPicker()">
         
         <label>Saat Seçin:</label>
@@ -712,7 +747,7 @@
 </div>
 
 <script>
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxEMeLJsMM0IFiinTzv806XfcSR-tjibvOerDJYEwCRTF7qIXoVE_lyw9H6tLTrMZws/exec";
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz2Pm23Lpz37TZDZ8Y862-mlus7byllLz12vtErdYsLAJHR2nIXnzNuotOsOphpjs1G/exec";
 
     let visibleGalleryItems = 10;
     
@@ -730,6 +765,40 @@
         if (visibleGalleryItems >= items.length) {
             document.getElementById('loadMoreBtn').style.display = 'none';
         }
+    }
+
+    // OTOMATİK TARİH BULMA FONKSİYONU
+    function findNearestDate() {
+        const btn = document.getElementById('autoDateBtn');
+        const originalText = "En Yakın Tarihi Seç";
+        btn.innerHTML = "Aranıyor...";
+        btn.style.pointerEvents = "none";
+
+        fetch(WEB_APP_URL + "?islem=enYakinTarih")
+        .then(response => response.json())
+        .then(data => {
+            if(data && data.tarih) {
+                const tarihInput = document.getElementById('r-tarih');
+                tarihInput.value = data.tarih;
+                tarihInput.dispatchEvent(new Event('change')); // Seçili günün saatlerini kontrol ettir
+                
+                btn.innerHTML = "Bulundu";
+                setTimeout(() => { 
+                    btn.innerHTML = originalText; 
+                    btn.style.pointerEvents = "auto"; 
+                }, 2500);
+            } else {
+                alert("Önümüzdeki 30 gün boyunca boş randevu saati bulunamadı.");
+                btn.innerHTML = originalText;
+                btn.style.pointerEvents = "auto";
+            }
+        })
+        .catch(error => {
+            console.error("Otomatik tarih hatası:", error);
+            alert("Sunucu ile iletişim kurulamadı.");
+            btn.innerHTML = originalText;
+            btn.style.pointerEvents = "auto";
+        });
     }
 
     document.addEventListener("DOMContentLoaded", function() {
