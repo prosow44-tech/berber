@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18199647209"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'AW-18199647209');
-</script>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Malatya Berber - Tarzınız Farkınız Olsun. Profesyonel saç ve sakal tasarımı, cilt bakımı ve kişisel imaj danışmanlığı.">
@@ -17,8 +8,6 @@
 <title>Berber | Tarzın Adresi</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 
 <style>
     :root {
@@ -301,10 +290,6 @@
     }
     .video-item.is-playing .play-btn-overlay { display: none; }
 
-    .hidden-item {
-        display: none !important;
-    }
-
     .load-more-container {
         text-align: center;
         margin-top: 40px;
@@ -321,7 +306,6 @@
         flex: none;
     }
 
-    .pano-container { width: 100%; height: 500px; background: #111; margin-bottom: 50px; border: 1px solid #333; border-radius: 10px; overflow: hidden; }
     .map-container iframe { width: 100%; height: 400px; border: 0; filter: invert(90%) hue-rotate(180deg) brightness(0.8) contrast(1.2); border-radius: 10px; }
 
     .contact-box { text-align: center; padding: 30px 0; }
@@ -467,8 +451,7 @@
     .auto-date-btn {
         background: rgba(10, 10, 10, 0.95);
         border: 2px solid transparent;
-        color: #fff;
-        padding: 6px 12px;
+        color: #fff;padding: 6px 12px;
         border-radius: 50px;
         font-size: 0.7rem;
         font-weight: 800;
@@ -545,6 +528,7 @@
         nav { padding: 12px 0; margin-top: 8px; border-radius: 12px; }
         nav a { display: inline-block; margin: 0 8px; font-size: 0.8rem; }
         .nav-logo { height: 35px; width: 35px; margin: 0 5px; }
+        
         .hero { padding-top: 0; justify-content: center; }
         
         .anim-text.text-active { top: 14%; font-size: 1.5rem; }
@@ -562,15 +546,15 @@
         .price-list { grid-template-columns: 1fr; }
         .gallery-grid { grid-template-columns: 1fr; }
         .video-item { height: 250px; }
-        .pano-container { height: 300px; }
         .map-container iframe { height: 300px; }
         .modal-content { padding: 25px 20px; }
         .success-toast { width: 90%; flex-direction: column; text-align: center; border-radius: 20px; font-size: 0.85rem; padding: 20px; }
         .success-toast .icon { margin-bottom: 5px; }
         .auto-date-btn, .auto-time-btn { font-size: 0.65rem; padding: 5px 10px; }
     }
-</style></head><body>
-
+</style>
+</head>
+<body>
 <div class="stars"></div>
 
 <div id="success-notification" class="success-toast">
@@ -595,7 +579,6 @@
         
         <a href="#fiyatlar" class="hide-on-mobile">Fiyat Listesi</a>
         <a href="#galeri">Galeri</a>
-        <a href="#sanal-tur" class="hide-on-mobile">360° Gezinti</a>
         <a href="https://www.google.com/maps/dir/?api=1&destination=İstiklal,+Atmalı+Sok.+15+b,+44050+Battalgazi+/+Malatya" target="_blank" class="hide-on-mobile">Yol Tarifi</a>
     </nav>
 </div>
@@ -657,33 +640,16 @@
 <section id="galeri" class="section">
     <h2 class="title">Çalışmalarımız</h2>
     <div class="gallery-grid" id="galleryContainer">
-        <div class="video-item"><video src="assets/calisma1.webm" playsinline loop muted autoplay></video></div>
-        <div class="video-item"><video src="assets/calisma2.webm" playsinline loop muted autoplay></video></div>
-        <div class="video-item"><video src="assets/calisma3.webm" playsinline loop muted autoplay></video></div>
-        
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma4.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma5.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma6.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma7.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma8.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma9.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma10.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        
-        <div class="video-item clickable hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma11.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma12.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma13.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma14.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma15.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma16.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma17.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma18.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma19.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma20.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma21.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma22.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma23.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma24.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable hidden-item" onclick="toggleInlineVideo(this)"><video src="assets/calisma25.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma1.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma2.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma3.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma4.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma5.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma6.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma7.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma8.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma9.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma10.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
     </div>
     
     <div class="load-more-container">
@@ -691,11 +657,6 @@
             <span class="btn-text-main" style="font-size: 1rem;">DAHA FAZLA YÜKLE</span>
         </button>
     </div>
-</section>
-
-<section id="sanal-tur" class="section" style="padding-bottom: 20px;">
-    <h2 class="title">360° Dükkan Turu</h2>
-    <div id="panorama" class="pano-container"></div>
 </section>
 
 <section id="iletisim" class="section" style="padding-top: 50px;">
@@ -782,87 +743,71 @@
         <button onclick="randevuOlustur()" class="modal-submit-btn">Onayla ve Randevu Al</button>
     </div>
 </div>
-
 <script>
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz2Pm23Lpz37TZDZ8Y862-mlus7byllLz12vtErdYsLAJHR2nIXnzNuotOsOphpjs1G/exec";
 
-    let visibleGalleryItems = 10;
+    const extraVideos = [
+        "assets/calisma11.webm", "assets/calisma12.webm", "assets/calisma13.webm",
+        "assets/calisma14.webm", "assets/calisma15.webm", "assets/calisma16.webm",
+        "assets/calisma17.webm", "assets/calisma18.webm", "assets/calisma19.webm",
+        "assets/calisma20.webm", "assets/calisma21.webm", "assets/calisma22.webm",
+        "assets/calisma23.webm", "assets/calisma24.webm", "assets/calisma25.webm"
+    ];
     
     function loadMoreGallery() {
-        const items = document.querySelectorAll('#galleryContainer .video-item');
+        const container = document.getElementById('galleryContainer');
         let shownThisTime = 0;
         
-        for (let i = visibleGalleryItems; i < items.length && shownThisTime < 10; i++) {
-            items[i].classList.remove('hidden-item');
+        while (shownThisTime < 10 && extraVideos.length > 0) {
+            let vidSrc = extraVideos.shift();
+            let div = document.createElement('div');
+            div.className = 'video-item clickable';
+            div.setAttribute('onclick', 'toggleInlineVideo(this)');
+            div.innerHTML = `<video src="${vidSrc}#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div>`;
+            container.appendChild(div);
             shownThisTime++;
         }
         
-        visibleGalleryItems += shownThisTime;
-        
-        if (visibleGalleryItems >= items.length) {
+        if (extraVideos.length === 0) {
             document.getElementById('loadMoreBtn').style.display = 'none';
         }
     }
 
     function findNearestDate() {
         const btn = document.getElementById('autoDateBtn');
-        const originalText = "En Yakın Tarihi Seç";
         btn.innerHTML = "Aranıyor...";
         btn.style.pointerEvents = "none";
 
         fetch(WEB_APP_URL + "?islem=enYakinTarih")
-        .then(response => response.json())
+        .then(response => response.text())
         .then(data => {
-            if(data && data.tarih) {
-                const tarihInput = document.getElementById('r-tarih');
-                tarihInput.value = data.tarih;
-                tarihInput.dispatchEvent(new Event('change'));
-                
-                btn.innerHTML = "Bulundu";
-                setTimeout(() => { 
-                    btn.innerHTML = originalText; 
-                    btn.style.pointerEvents = "auto"; 
-                }, 2500);
-            } else {
-                alert("Önümüzdeki 30 gün boyunca boş randevu saati bulunamadı.");
-                btn.innerHTML = originalText;
-                btn.style.pointerEvents = "auto";
-            }
+            document.getElementById('r-tarih').value = data;
+            document.getElementById('r-tarih').dispatchEvent(new Event('change'));
+            btn.innerHTML = "En Yakın Tarihi Seç";
+            btn.style.pointerEvents = "auto";
         })
         .catch(error => {
-            console.error("Otomatik tarih hatası:", error);
-            alert("Sunucu ile iletişim kurulamadı.");
-            btn.innerHTML = originalText;
-            btn.style.pointerEvents = "auto";
+            console.error(error);
+            btn.innerHTML = "Hata!";
+            setTimeout(() => {
+                btn.innerHTML = "En Yakın Tarihi Seç";
+                btn.style.pointerEvents = "auto";
+            }, 2000);
         });
     }
 
     function selectNearestTime() {
+        const rTarih = document.getElementById('r-tarih').value;
+        if (!rTarih) { alert('Önce tarih seçiniz!'); return; }
+        
         const saatSelect = document.getElementById('r-saat');
-        const tarihInput = document.getElementById('r-tarih');
-        
-        if (!tarihInput.value) {
-            alert("Lütfen önce bir tarih seçin veya 'En Yakın Tarihi Seç' butonuna tıklayın.");
-            return;
-        }
-        
-        if (saatSelect.options[0].text.includes("bekliyor") || saatSelect.options[0].text.includes("ediliyor")) {
-            alert("Saatler şu an kontrol ediliyor, lütfen bir saniye bekleyip tekrar deneyin.");
-            return;
-        }
-
-        let found = false;
         for (let i = 1; i < saatSelect.options.length; i++) {
             if (!saatSelect.options[i].disabled) {
                 saatSelect.selectedIndex = i;
-                found = true;
-                break;
+                return;
             }
         }
-        
-        if (!found) {
-            alert("Seçili tarihte boş saat bulunamadı.");
-        }
+        alert('Bu tarihte uygun saat kalmamıştır.');
     }
 
     document.addEventListener("DOMContentLoaded", function() {
@@ -984,12 +929,6 @@
         }
     });
 
-    pannellum.viewer('panorama', {
-        "type": "equirectangular",
-        "panorama": "https://pannellum.org/images/alma.jpg", 
-        "autoLoad": true, "autoRotate": -2, "showControls": true
-    });
-
     function toggleInlineVideo(el) {
         const video = el.querySelector('video');
         if (!video) return;
@@ -1108,4 +1047,15 @@
         const randevuModal = document.getElementById('randevuModal');
         if (event.target === randevuModal) { closeModal(); }
     }
-</script></body></html>
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18199647209"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18199647209');
+</script>
+
+</body>
+</html>
