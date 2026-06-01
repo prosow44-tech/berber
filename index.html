@@ -345,8 +345,7 @@
     }
     footer p { margin: 5px 0; }
     footer span { color: var(--gold); font-weight: 600; }
-
-    .modal {
+        .modal {
         display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%;
         background-color: rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px); 
         justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s;
@@ -451,7 +450,8 @@
     .auto-date-btn {
         background: rgba(10, 10, 10, 0.95);
         border: 2px solid transparent;
-        color: #fff;padding: 6px 12px;
+        color: #fff;
+        padding: 6px 12px;
         border-radius: 50px;
         font-size: 0.7rem;
         font-weight: 800;
@@ -528,7 +528,6 @@
         nav { padding: 12px 0; margin-top: 8px; border-radius: 12px; }
         nav a { display: inline-block; margin: 0 8px; font-size: 0.8rem; }
         .nav-logo { height: 35px; width: 35px; margin: 0 5px; }
-        
         .hero { padding-top: 0; justify-content: center; }
         
         .anim-text.text-active { top: 14%; font-size: 1.5rem; }
@@ -552,9 +551,8 @@
         .success-toast .icon { margin-bottom: 5px; }
         .auto-date-btn, .auto-time-btn { font-size: 0.65rem; padding: 5px 10px; }
     }
-</style>
-</head>
-<body>
+</style></head><body>
+
 <div class="stars"></div>
 
 <div id="success-notification" class="success-toast">
@@ -640,16 +638,16 @@
 <section id="galeri" class="section">
     <h2 class="title">Çalışmalarımız</h2>
     <div class="gallery-grid" id="galleryContainer">
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma1.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma2.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma3.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma4.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma5.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma6.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma7.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma8.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma9.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma10.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma1.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma2.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma3.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma4.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma5.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma6.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma7.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma8.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma9.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma10.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
     </div>
     
     <div class="load-more-container">
@@ -746,68 +744,96 @@
 <script>
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz2Pm23Lpz37TZDZ8Y862-mlus7byllLz12vtErdYsLAJHR2nIXnzNuotOsOphpjs1G/exec";
 
-    const extraVideos = [
+    const extraGalleryVideos = [
         "assets/calisma11.webm", "assets/calisma12.webm", "assets/calisma13.webm",
         "assets/calisma14.webm", "assets/calisma15.webm", "assets/calisma16.webm",
         "assets/calisma17.webm", "assets/calisma18.webm", "assets/calisma19.webm",
         "assets/calisma20.webm", "assets/calisma21.webm", "assets/calisma22.webm",
         "assets/calisma23.webm", "assets/calisma24.webm", "assets/calisma25.webm"
     ];
+    let loadedExtraVideoCount = 0;
     
     function loadMoreGallery() {
         const container = document.getElementById('galleryContainer');
-        let shownThisTime = 0;
+        let videosToLoad = 10;
+        let loadedThisCycle = 0;
         
-        while (shownThisTime < 10 && extraVideos.length > 0) {
-            let vidSrc = extraVideos.shift();
-            let div = document.createElement('div');
+        while (loadedThisCycle < videosToLoad && loadedExtraVideoCount < extraGalleryVideos.length) {
+            const videoSrc = extraGalleryVideos[loadedExtraVideoCount];
+            const div = document.createElement('div');
             div.className = 'video-item clickable';
             div.setAttribute('onclick', 'toggleInlineVideo(this)');
-            div.innerHTML = `<video src="${vidSrc}#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div>`;
+            div.innerHTML = `<video src="${videoSrc}#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div>`;
             container.appendChild(div);
-            shownThisTime++;
+            
+            loadedExtraVideoCount++;
+            loadedThisCycle++;
         }
         
-        if (extraVideos.length === 0) {
+        if (loadedExtraVideoCount >= extraGalleryVideos.length) {
             document.getElementById('loadMoreBtn').style.display = 'none';
         }
     }
 
     function findNearestDate() {
         const btn = document.getElementById('autoDateBtn');
+        const originalText = "En Yakın Tarihi Seç";
         btn.innerHTML = "Aranıyor...";
         btn.style.pointerEvents = "none";
 
         fetch(WEB_APP_URL + "?islem=enYakinTarih")
-        .then(response => response.text())
+        .then(response => response.json())
         .then(data => {
-            document.getElementById('r-tarih').value = data;
-            document.getElementById('r-tarih').dispatchEvent(new Event('change'));
-            btn.innerHTML = "En Yakın Tarihi Seç";
-            btn.style.pointerEvents = "auto";
+            if(data && data.tarih) {
+                const tarihInput = document.getElementById('r-tarih');
+                tarihInput.value = data.tarih;
+                tarihInput.dispatchEvent(new Event('change'));
+                
+                btn.innerHTML = "Bulundu";
+                setTimeout(() => { 
+                    btn.innerHTML = originalText; 
+                    btn.style.pointerEvents = "auto"; 
+                }, 2500);
+            } else {
+                alert("Önümüzdeki 30 gün boyunca boş randevu saati bulunamadı.");
+                btn.innerHTML = originalText;
+                btn.style.pointerEvents = "auto";
+            }
         })
         .catch(error => {
-            console.error(error);
-            btn.innerHTML = "Hata!";
-            setTimeout(() => {
-                btn.innerHTML = "En Yakın Tarihi Seç";
-                btn.style.pointerEvents = "auto";
-            }, 2000);
+            console.error("Otomatik tarih hatası:", error);
+            alert("Sunucu ile iletişim kurulamadı.");
+            btn.innerHTML = originalText;
+            btn.style.pointerEvents = "auto";
         });
     }
 
     function selectNearestTime() {
-        const rTarih = document.getElementById('r-tarih').value;
-        if (!rTarih) { alert('Önce tarih seçiniz!'); return; }
-        
         const saatSelect = document.getElementById('r-saat');
+        const tarihInput = document.getElementById('r-tarih');
+        
+        if (!tarihInput.value) {
+            alert("Lütfen önce bir tarih seçin veya 'En Yakın Tarihi Seç' butonuna tıklayın.");
+            return;
+        }
+        
+        if (saatSelect.options[0].text.includes("bekliyor") || saatSelect.options[0].text.includes("ediliyor")) {
+            alert("Saatler şu an kontrol ediliyor, lütfen bir saniye bekleyip tekrar deneyin.");
+            return;
+        }
+
+        let found = false;
         for (let i = 1; i < saatSelect.options.length; i++) {
             if (!saatSelect.options[i].disabled) {
                 saatSelect.selectedIndex = i;
-                return;
+                found = true;
+                break;
             }
         }
-        alert('Bu tarihte uygun saat kalmamıştır.');
+        
+        if (!found) {
+            alert("Seçili tarihte boş saat bulunamadı.");
+        }
     }
 
     document.addEventListener("DOMContentLoaded", function() {
@@ -1054,8 +1080,7 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
+
   gtag('config', 'AW-18199647209');
 </script>
-
-</body>
-</html>
+</body></html>
