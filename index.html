@@ -9,6 +9,16 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
 
+<!-- Google tag (gtag.js) - Doğru yerleşim (Head etiketleri arası) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18199647209"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-18199647209');
+</script>
+
 <style>
     :root {
         --gold: #c5a059;
@@ -221,8 +231,7 @@
     }
     .glass-btn:hover { background: rgba(197, 160, 89, 0.3); transform: scale(1.02); }
     .glass-btn.randevu { width: 100%; flex: none; }
-    
-    .btn-text-main { display: flex; align-items: center; font-size: 1.25rem; letter-spacing: 1px; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.9); }
+        .btn-text-main { display: flex; align-items: center; font-size: 1.25rem; letter-spacing: 1px; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.9); }
     .btn-icon { font-size: 1.5rem; margin-right: 8px; }
     .btn-sub { font-size: 0.8rem; font-weight: 600; opacity: 0.9; margin-top: 5px; letter-spacing: 0.5px; transition: opacity 0.4s ease-in-out; text-shadow: 0 1px 3px rgba(0,0,0,0.9); }
 
@@ -406,8 +415,7 @@
         50% { transform: translateX(5px); }
         75% { transform: translateX(-5px); }
     }
-
-    .success-toast {
+        .success-toast {
         position: fixed;
         top: 20px;
         left: 50%;
@@ -670,7 +678,6 @@
         <iframe src="https://maps.google.com/maps?q=İstiklal,%20Atmalı%20Sok.%2015%20b,%2044050%20Battalgazi%20/%20Malatya&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 </section>
-
 <footer>
     <p>© 2026 <span>Berber Samed Ağca</span>. Tüm Hakları Saklıdır.</p>
     <p>Tarzınız Farkınız Olsun.</p>
@@ -1073,14 +1080,5 @@
         const randevuModal = document.getElementById('randevuModal');
         if (event.target === randevuModal) { closeModal(); }
     }
-</script>
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18199647209"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'AW-18199647209');
 </script>
 </body></html>
