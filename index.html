@@ -259,7 +259,7 @@
         background-size: 113px 113px;
         animation: pole-scroll 1s linear infinite;
     }
-    @keyframes pole-scroll {
+      @keyframes pole-scroll {
         from { background-position: 0 0; }
         to { background-position: 0 113px; }
     }
@@ -619,7 +619,6 @@
         </button>
     </div>
 </header>
-
 <section id="fiyatlar" class="section">
     <div class="barber-pole-container pole-left"><div class="barber-pole"></div></div>
     <div class="barber-pole-container pole-right"><div class="barber-pole"></div></div>
@@ -646,16 +645,16 @@
 <section id="galeri" class="section">
     <h2 class="title">Çalışmalarımız</h2>
     <div class="gallery-grid" id="galleryContainer">
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma1.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma2.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma3.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma4.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma5.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma6.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma7.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma8.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma9.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video src="assets/calisma10.webm#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma1.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma2.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma3.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma4.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma5.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma6.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma7.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma8.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma9.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma10.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
     </div>
     
     <div class="load-more-container">
@@ -751,6 +750,7 @@
 <script>
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz2Pm23Lpz37TZDZ8Y862-mlus7byllLz12vtErdYsLAJHR2nIXnzNuotOsOphpjs1G/exec";
 
+    let videoObserver;
     const extraGalleryVideos = [
         "assets/calisma11.webm", "assets/calisma12.webm", "assets/calisma13.webm",
         "assets/calisma14.webm", "assets/calisma15.webm", "assets/calisma16.webm",
@@ -770,8 +770,12 @@
             const div = document.createElement('div');
             div.className = 'video-item clickable';
             div.setAttribute('onclick', 'toggleInlineVideo(this)');
-            div.innerHTML = `<video src="${videoSrc}#t=0.1" preload="metadata" playsinline loop></video><div class="play-btn-overlay">▶</div>`;
+            div.innerHTML = `<video data-src="${videoSrc}#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div>`;
             container.appendChild(div);
+            
+            if (videoObserver) {
+                videoObserver.observe(div.querySelector('video'));
+            }
             
             loadedExtraVideoCount++;
             loadedThisCycle++;
@@ -842,8 +846,25 @@
             alert("Seçili tarihte boş saat bulunamadı.");
         }
     }
+      document.addEventListener("DOMContentLoaded", function() {
+        videoObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const video = entry.target;
+                    if(video.hasAttribute('data-src')) {
+                        video.src = video.getAttribute('data-src');
+                        video.load();
+                        video.removeAttribute('data-src');
+                        observer.unobserve(video);
+                    }
+                }
+            });
+        }, { rootMargin: '0px 0px 200px 0px' });
 
-    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('video[data-src]').forEach(video => {
+            videoObserver.observe(video);
+        });
+
         const tarihInput = document.getElementById('r-tarih');
         const bugun = new Date();
         const yyyy = bugun.getFullYear();
