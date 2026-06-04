@@ -1060,6 +1060,12 @@
             } else {
                 closeModal();
                 
+                // --- GOOGLE ADS DÖNÜŞÜM KODU BAŞLANGICI ---
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-18208491751/z4x7CK_M4LgcEOeRvupD'
+                });
+                // --- GOOGLE ADS DÖNÜŞÜM KODU BİTİŞİ ---
+
                 const successToast = document.getElementById('success-notification');
                 successToast.classList.add('show');
                 
@@ -1097,7 +1103,6 @@
     }
 </script>
 
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18208491751"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
