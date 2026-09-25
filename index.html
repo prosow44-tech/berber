@@ -53,9 +53,9 @@
         --dark: #0a0a0a;
         --neon-green: #00ff88;
     }
-    
+
     html { scroll-behavior: smooth; }
-    
+
     body { 
         margin: 0; padding: 0; 
         font-family: 'Montserrat', sans-serif; 
@@ -70,7 +70,6 @@
         -ms-user-select: none;
         user-select: none;
     }
-    /* Randevu formundaki alanlarda yazma/seçme normal çalışsın */
     input, textarea, select {
         -webkit-user-select: text;
         -moz-user-select: text;
@@ -82,6 +81,36 @@
     .sr-only {
         position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
         overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* GPU Video Optimizasyon Sınıfları */
+    .gpu-accelerate {
+        transform: translateZ(0);
+        will-change: transform;
+        backface-visibility: hidden;
+    }
+
+    .video-skeleton {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, #151515 25%, #252525 50%, #151515 75%);
+        background-size: 200% 100%;
+        animation: skeleton-loading 1.5s infinite linear;
+        z-index: 1;
+        border-radius: inherit;
+    }
+    @keyframes skeleton-loading {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+    }
+
+    video {
+        opacity: 0;
+        transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 2;
+    }
+    .is-loaded > video {
+        opacity: 1;
     }
 
     .stars {
@@ -106,7 +135,7 @@
     ::-webkit-scrollbar-track { background: var(--dark); }
     ::-webkit-scrollbar-thumb { background: #333; border-radius: 5px; border: 2px solid var(--dark); }
     ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
-    
+
     @keyframes rgb-barber-glow {
         0%, 100% { box-shadow: 0 0 15px #d32f2f, inset 0 0 5px #d32f2f; border-color: #d32f2f; }
         33% { box-shadow: 0 0 15px #ffffff, inset 0 0 5px #ffffff; border-color: #ffffff; }
@@ -157,7 +186,7 @@
         justify-content: center;
         align-items: center;
     }
-    
+
     nav::after {
         content: '';
         position: absolute; bottom: 0; left: 0;
@@ -167,7 +196,7 @@
         animation: neon-barber-colors 2s linear infinite;
         box-shadow: 0 0 8px rgba(255,255,255,0.6);
     }
-    
+
     @keyframes neon-barber-colors {
         0% { background-position: 100% 0; }
         100% { background-position: 0% 0; }
@@ -178,7 +207,7 @@
         font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; 
     }
     nav a:hover, nav button.mobile-only:hover { color: var(--gold); }
-    
+
     .nav-logo {
         height: 45px;
         width: 45px;
@@ -193,7 +222,7 @@
     .mobile-only { display: none; }
 
     .hero { position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: hidden; box-sizing: border-box; }
-    
+
     .hero::after {
         content: '';
         position: absolute; bottom: 0; left: 0;
@@ -205,7 +234,7 @@
         z-index: 20;
     }
 
-    .video-bg { 
+    .hero-video-wrapper {
         position: absolute; 
         top: 0; 
         left: 50%; 
@@ -213,11 +242,16 @@
         width: 100%; 
         max-width: 800px; 
         height: 100%; 
-        object-fit: cover; 
         z-index: -1; 
         box-shadow: 0 0 50px rgba(0,0,0,1);
     }
-    
+
+    .video-bg { 
+        width: 100%; 
+        height: 100%; 
+        object-fit: cover; 
+    }
+
     .anim-container {
         position: absolute;
         width: 100%;
@@ -243,7 +277,7 @@
         top: 5%;
         text-shadow: 0 4px 15px rgba(0,0,0,0.9);
     }
-    
+
     .anim-text.text-active { 
         opacity: 1;
         top: 22%; 
@@ -261,14 +295,14 @@
         top: 88%; 
         transform: translateX(-50%) scale(0.7);
     }
-    
+
     .solid-red { color: #d32f2f; }
     .solid-white { color: #ffffff; }
     .solid-blue { color: #4dabf7; }
 
     .btn-container { z-index: 100; width: 90%; max-width: 650px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px; margin: 0 auto; position: relative; }
     .top-btns { display: flex; gap: 20px; width: 100%; }
-    
+
     .glass-btn {
         background: rgba(25, 25, 25, 0.2); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
         border: 2px solid transparent; border-radius: 20px;
@@ -332,18 +366,19 @@
         height: 350px;
     }
     .video-item.clickable { cursor: pointer; }
-    
+
     .video-item video {
-        width: 100%; height: 100%; object-fit: cover; transition: 0.3s;
+        width: 100%; height: 100%; object-fit: cover;
     }
     .video-item.clickable video { opacity: 0.8; }
-    .video-item.clickable:hover video { opacity: 1; transform: scale(1.02); }
+    .video-item.clickable.is-loaded:hover video { opacity: 1; transform: scale(1.02); }
     .video-item.is-playing video { opacity: 1; transform: scale(1); }
-    
+
     .play-btn-overlay {
         position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
         font-size: 2rem; color: rgba(255,255,255,0.4); pointer-events: none;
         transition: 0.2s; text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        z-index: 3;
     }
     .video-item.is-playing .play-btn-overlay { display: none; }
 
@@ -354,7 +389,7 @@
         display: flex;
         justify-content: center;
     }
-    
+
     .load-more-btn {
         height: 60px;
         width: 250px;
@@ -421,7 +456,7 @@
     .close-btn:hover { color: var(--gold); }
     .modal-content h3 { color: var(--gold); text-align: center; margin: 0 0 5px 0; font-size: 1.6rem; letter-spacing: 2px; font-weight: 900; }
     .modal-content label { font-size: 0.85rem; color: #ccc; font-weight: 600; margin-bottom: -5px; letter-spacing: 0.5px; }
-    
+
     .modal-content select, .modal-content input {
         padding: 12px 16px; background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; border-radius: 12px;
         font-family: 'Montserrat', sans-serif; font-size: 1rem; outline: none; transition: all 0.3s; cursor: pointer;
@@ -434,7 +469,7 @@
     }
     .modal-content select:focus, .modal-content input:focus { border-color: var(--gold); background: rgba(0, 0, 0, 0.8); box-shadow: 0 0 15px rgba(197, 160, 89, 0.3); }
     .modal-content select option[disabled] { color: #555; background-color: #111; font-style: italic; }
-    
+
     .modal-submit-btn {
         background: rgba(0, 230, 118, 0.2); color: #00e676; border: 1px solid #00e676;
         padding: 16px; font-weight: 800; font-size: 1rem; border-radius: 12px; cursor: pointer; transition: all 0.3s;
@@ -533,7 +568,7 @@
         font-size: 0.7rem;
     }
     .auto-date-btn:hover { transform: scale(1.05); }
-    
+
     .auto-time-btn {
         background: rgba(10, 10, 10, 0.95);
         border: 2px solid transparent;
@@ -585,7 +620,7 @@
         nav a, nav button.mobile-only { display: inline-block; margin: 0 8px; font-size: 0.8rem; }
         .nav-logo { height: 35px; width: 35px; margin: 0 5px; }
         .hero { padding-top: 0; justify-content: center; }
-        
+
         .anim-text.text-active { top: 14%; font-size: 1.5rem; }
         .anim-text.text-below { top: 82%; font-size: 1.3rem; }
         .anim-text.text-exit { top: 94%; font-size: 1.1rem; }
@@ -630,19 +665,20 @@
         <a href="#anasayfa" class="hide-on-mobile">Anasayfa</a>
         <a href="https://www.google.com/maps/dir/?api=1&destination=İstiklal,+Atmalı+Sok.+15+b,+44050+Battalgazi+/+Malatya" target="_blank" class="mobile-only">Yol Tarifi</a>
         <button onclick="openModal()" class="mobile-only" style="background:transparent; border:none; outline:none; padding:0; color:#fff; font-family:inherit; font-weight:600; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; cursor:pointer;">Randevu Al</button>
-        
+
         <img src="assets/logo.jpg" alt="Malatya Berber Logo" class="nav-logo" width="45" height="45" decoding="async">
-        
+
         <a href="#fiyatlar" class="hide-on-mobile">Fiyat Listesi</a>
         <a href="#galeri">Galeri</a>
         <a href="https://www.google.com/maps/dir/?api=1&destination=İstiklal,+Atmalı+Sok.+15+b,+44050+Battalgazi+/+Malatya" target="_blank" class="hide-on-mobile">Yol Tarifi</a>
     </nav>
 </div>
+
 <header id="anasayfa" class="hero">
-    <video autoplay muted loop playsinline class="video-bg" poster="assets/arkaplan-kare.jpg" preload="auto" fetchpriority="high">
-        <source src="assets/arkaplan-video.webm" type="video/webm">
-    </video>
-    
+    <div class="hero-video-wrapper gpu-accelerate">
+        <video muted loop playsinline class="video-bg" poster="assets/arkaplan-kare.jpg" preload="none" data-src="assets/arkaplan-video.webm#t=0.1"></video>
+    </div>
+
     <div class="anim-container">
         <div class="anim-text">Tarzınız <span class="solid-red">Farkınız</span> <span class="solid-white">Olsun</span></div>
         <div class="anim-text"><span class="solid-blue">Tarzın Varsa</span> Gerisi Detay</div>
@@ -661,7 +697,7 @@
                 <span class="btn-sub">Berberine Mesaj Yaz</span>
             </a>
         </div>
-        
+
         <button onclick="openModal()" class="glass-btn randevu">
             <span class="btn-text-main"><span class="btn-icon">📅</span> RANDEVU AL</span>
             <span class="btn-sub">Koltuğunu Ayırt</span>
@@ -672,7 +708,7 @@
 <section id="fiyatlar" class="section">
     <div class="barber-pole-container pole-left"><div class="barber-pole"></div></div>
     <div class="barber-pole-container pole-right"><div class="barber-pole"></div></div>
-    
+
     <h2 class="title">Hizmetlerimiz</h2>
     <ul class="price-list">
         <li class="price-item"><span class="servis">Saç Traşı</span> <span class="fiyat">250 TL</span></li>
@@ -695,18 +731,18 @@
 <section id="galeri" class="section">
     <h2 class="title">Çalışmalarımız</h2>
     <div class="gallery-grid" id="galleryContainer">
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma1.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma2.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma3.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma4.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma5.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma6.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma7.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma8.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma9.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
-        <div class="video-item clickable" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma10.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable gpu-accelerate" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma1.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable gpu-accelerate" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma2.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable gpu-accelerate" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma3.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable gpu-accelerate" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma4.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable gpu-accelerate" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma5.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable gpu-accelerate" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma6.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable gpu-accelerate" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma7.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable gpu-accelerate" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma8.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable gpu-accelerate" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma9.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
+        <div class="video-item clickable gpu-accelerate" onclick="toggleInlineVideo(this)"><video data-src="assets/calisma10.webm#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div></div>
     </div>
-    
+
     <div class="load-more-container">
         <button id="loadMoreBtn" class="glass-btn load-more-btn" onclick="loadMoreGallery()">
             <span class="btn-text-main" style="font-size: 1rem;">DAHA FAZLA YÜKLE</span>
@@ -736,18 +772,21 @@
     <div class="modal-content">
         <span class="close-btn" onclick="closeModal()">×</span>
         <h3>RANDEVU AL</h3>
-        
+
         <div id="error-message" class="error-banner">
             <span class="icon">❌</span>
             <div id="error-text">Randevu Saati Doludur.<br>Lütfen Farklı Bir Saat veya Gün Seçiniz.</div>
         </div>
+        
+        <!-- Honeypot (Sessiz Bot Tuzağı) -->
+        <input type="text" id="r-honeypot" class="sr-only" tabindex="-1" autocomplete="off" placeholder="Bunu boş bırakın">
 
         <label>Adınız Soyadınız:</label>
         <input type="text" id="r-isim" placeholder="Örn: Ahmet Yılmaz" maxlength="50">
 
         <label>Telefon Numaranız:</label>
         <input type="tel" id="r-telefon" placeholder="Örn: 053X XXX XX XX" maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-        
+
         <label>Hizmet Seçin:</label>
         <select id="r-hizmet">
             <option value="Saç Traşı">Saç Traşı - 250 TL</option>
@@ -765,13 +804,13 @@
             <option value="Keratin">Keratin - 500 TL</option>
             <option value="Damat Traşı">Damat Traşı - 3000 TL</option>
         </select>
-        
+
         <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: -5px;">
             <label style="margin-bottom: 0;">Tarih Seçin: <span id="date-relative-text" class="relative-date-text"></span></label>
             <button type="button" id="autoDateBtn" class="auto-date-btn" onclick="findNearestDate()">En Yakın Tarihi Seç</button>
         </div>
         <input type="date" id="r-tarih" onclick="this.showPicker()">
-        
+
         <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: -5px; margin-top: 5px;">
             <label style="margin-bottom: 0;">Saat Seçin:</label>
             <button type="button" class="auto-time-btn" onclick="selectNearestTime()">En Yakın Saati Seç</button>
@@ -794,13 +833,15 @@
             <option value="22:00">22:00</option>
         </select>
 
-        <button onclick="randevuOlustur()" class="modal-submit-btn">Onayla ve Randevu Al</button>
+        <button onclick="randevuOlustur(event)" class="modal-submit-btn">Onayla ve Randevu Al</button>
     </div>
 </div>
 <script>
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz2Pm23Lpz37TZDZ8Y862-mlus7byllLz12vtErdYsLAJHR2nIXnzNuotOsOphpjs1G/exec";
 
     let videoObserver;
+    let randevuAcilisZamani = 0;
+    
     const extraGalleryVideos = [
         "assets/calisma11.webm", "assets/calisma12.webm", "assets/calisma13.webm",
         "assets/calisma14.webm", "assets/calisma15.webm", "assets/calisma16.webm",
@@ -809,28 +850,28 @@
         "assets/calisma23.webm", "assets/calisma24.webm", "assets/calisma25.webm"
     ];
     let loadedExtraVideoCount = 0;
-    
+
     function loadMoreGallery() {
         const container = document.getElementById('galleryContainer');
         let videosToLoad = 10;
         let loadedThisCycle = 0;
-        
+
         while (loadedThisCycle < videosToLoad && loadedExtraVideoCount < extraGalleryVideos.length) {
             const videoSrc = extraGalleryVideos[loadedExtraVideoCount];
             const div = document.createElement('div');
-            div.className = 'video-item clickable';
+            div.className = 'video-item clickable gpu-accelerate';
             div.setAttribute('onclick', 'toggleInlineVideo(this)');
             div.innerHTML = `<video data-src="${videoSrc}#t=0.1" preload="none" playsinline loop></video><div class="play-btn-overlay">▶</div>`;
             container.appendChild(div);
-            
+
             if (videoObserver) {
                 videoObserver.observe(div.querySelector('video'));
             }
-            
+
             loadedExtraVideoCount++;
             loadedThisCycle++;
         }
-        
+
         if (loadedExtraVideoCount >= extraGalleryVideos.length) {
             document.getElementById('loadMoreBtn').style.display = 'none';
         }
@@ -849,7 +890,7 @@
                 const tarihInput = document.getElementById('r-tarih');
                 tarihInput.value = data.tarih;
                 tarihInput.dispatchEvent(new Event('change'));
-                
+
                 btn.innerHTML = "Bulundu";
                 setTimeout(() => { 
                     btn.innerHTML = originalText; 
@@ -872,12 +913,12 @@
     function selectNearestTime() {
         const saatSelect = document.getElementById('r-saat');
         const tarihInput = document.getElementById('r-tarih');
-        
+
         if (!tarihInput.value) {
             alert("Lütfen önce bir tarih seçin veya 'En Yakın Tarihi Seç' butonuna tıklayın.");
             return;
         }
-        
+
         if (saatSelect.options[0].text.includes("bekliyor") || saatSelect.options[0].text.includes("ediliyor")) {
             alert("Saatler şu an kontrol ediliyor, lütfen bir saniye bekleyip tekrar deneyin.");
             return;
@@ -891,26 +932,43 @@
                 break;
             }
         }
-        
+
         if (!found) {
             alert("Seçili tarihte boş saat bulunamadı.");
         }
     }
 
     document.addEventListener("DOMContentLoaded", function() {
+        /* Kusursuz Lazy Load ve Skeleton Altyapısı */
         videoObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const video = entry.target;
                     if(video.hasAttribute('data-src')) {
+                        const wrapper = video.parentElement;
+                        
+                        let skeleton = document.createElement('div');
+                        skeleton.className = 'video-skeleton';
+                        wrapper.appendChild(skeleton);
+
                         video.src = video.getAttribute('data-src');
                         video.load();
                         video.removeAttribute('data-src');
+
+                        video.addEventListener('loadeddata', () => {
+                            wrapper.classList.add('is-loaded');
+                            if(skeleton.parentNode) skeleton.remove();
+                            
+                            if (video.classList.contains('video-bg')) {
+                                video.play().catch(e => console.log("Oynatma hatası:", e));
+                            }
+                        }, { once: true });
+
                         observer.unobserve(video);
                     }
                 }
             });
-        }, { rootMargin: '0px 0px 200px 0px' });
+        }, { rootMargin: '0px 0px 400px 0px' });
 
         document.querySelectorAll('video[data-src]').forEach(video => {
             videoObserver.observe(video);
@@ -922,14 +980,14 @@
         const mm = String(bugun.getMonth() + 1).padStart(2, '0');
         const dd = String(bugun.getDate()).padStart(2, '0');
         const bugunTarihStr = `${yyyy}-${mm}-${dd}`;
-        
+
         tarihInput.min = bugunTarihStr;
-        
+
         tarihInput.addEventListener('change', function() {
             const secilenTarihStr = this.value;
             const saatSelect = document.getElementById('r-saat');
             const relativeTextSpan = document.getElementById('date-relative-text');
-            
+
             if(!secilenTarihStr) {
                 relativeTextSpan.innerText = "";
                 return;
@@ -939,10 +997,10 @@
             const bugunGece = new Date();
             bugunGece.setHours(0,0,0,0);
             secilenTarih.setHours(0,0,0,0);
-            
+
             const farkZaman = secilenTarih - bugunGece;
             const farkGun = Math.round(farkZaman / (1000 * 60 * 60 * 24));
-            
+
             if(farkGun === 0) relativeTextSpan.innerText = "(Bugün)";
             else if(farkGun === 1) relativeTextSpan.innerText = "(Yarın)";
             else if(farkGun > 1) relativeTextSpan.innerText = `(${farkGun} Gün Sonra)`;
@@ -950,7 +1008,7 @@
 
             const anlikZaman = new Date();
             const suAnkiSaatStr = String(anlikZaman.getHours()).padStart(2, '0') + ":" + String(anlikZaman.getMinutes()).padStart(2, '0');
-            
+
             for (let i = 1; i < saatSelect.options.length; i++) {
                 let optValue = saatSelect.options[i].value;
                 saatSelect.options[i].disabled = false;
@@ -963,7 +1021,7 @@
             }
 
             saatSelect.options[0].text = "Dolu saatler kontrol ediliyor...";
-            
+
             const url = WEB_APP_URL + "?islem=saatSorgula&tarih=" + secilenTarihStr;
 
             fetch(url)
@@ -980,7 +1038,7 @@
                             if (saatSelect.options[i].value === rSaat) {
                                 saatSelect.options[i].disabled = true;
                                 let maskText = "";
-                                
+
                                 if (rIsim) {
                                     let ad = rIsim.trim().split(' ')[0];
                                     if(ad.length > 2) {
@@ -1005,7 +1063,7 @@
                 saatSelect.options[0].text = "Saat Seçiniz";
             });
         });
-        
+
         const texts = document.querySelectorAll('.anim-text');
         if(texts.length > 0) {
             let currentIndex = 0;
@@ -1022,7 +1080,7 @@
                 currentIndex = (currentIndex + 1) % texts.length;
 
                 texts[currentIndex].classList.add('text-active');
-                
+
                 if(belowIndex !== -1) {
                     texts[belowIndex].classList.add('text-below');
                 }
@@ -1037,7 +1095,7 @@
     function toggleInlineVideo(el) {
         const video = el.querySelector('video');
         if (!video) return;
-        
+
         if (video.paused) {
             video.play().catch(e => console.log("Oynatılamadı:", e));
             el.classList.add('is-playing');
@@ -1050,7 +1108,8 @@
     function openModal() { 
         document.getElementById('randevuModal').classList.add('show'); 
         document.getElementById('error-message').style.display = 'none';
-        
+        randevuAcilisZamani = Date.now(); // Güvenlik Hız Testi Sayacı Başlat
+
         const tarihInput = document.getElementById('r-tarih');
         if(tarihInput.value) {
             tarihInput.dispatchEvent(new Event('change'));
@@ -1058,7 +1117,25 @@
     }
     function closeModal() { document.getElementById('randevuModal').classList.remove('show'); }
 
-    function randevuOlustur() {
+    function randevuOlustur(event) {
+        // Güvenlik Duvarı: Otomatik Tıklama Kontrolü (isTrusted)
+        if (event && !event.isTrusted) {
+            console.warn("Otomatik bot tıklaması engellendi.");
+            return;
+        }
+
+        // Güvenlik Duvarı: Honeypot (Bot Tuzağı)
+        if (document.getElementById('r-honeypot').value !== "") {
+            console.warn("Spam Bot tespit edildi (Honeypot).");
+            return;
+        }
+
+        // Güvenlik Duvarı: Hız Testi / Zaman Damgası
+        if (Date.now() - randevuAcilisZamani < 3000) {
+            alert("İşleminiz şüpheli şekilde hızlı gerçekleşti. Lütfen formu insan hızıyla (gerçek tıklamalarla) doldurunuz.");
+            return;
+        }
+
         const isim = document.getElementById('r-isim').value.trim();
         const telefon = document.getElementById('r-telefon').value.trim();
         const hizmet = document.getElementById('r-hizmet').value;
@@ -1107,16 +1184,16 @@
                 errorBanner.style.display = 'flex';
                 btn.innerText = originalText;
                 btn.disabled = false;
-                
+
                 document.getElementById('r-tarih').dispatchEvent(new Event('change'));
-                
+
                 setTimeout(() => {
                     errorBanner.style.display = 'none';
                 }, 12000);
-                
+
             } else {
                 closeModal();
-                
+
                 // --- GOOGLE ADS DÖNÜŞÜM KODU BAŞLANGICI ---
                 gtag('event', 'conversion', {
                     'send_to': 'AW-18208491751/z4x7CK_M4LgcEOeRvupD'
@@ -1125,11 +1202,11 @@
 
                 const successToast = document.getElementById('success-notification');
                 successToast.classList.add('show');
-                
+
                 setTimeout(() => {
                     successToast.classList.remove('show');
                 }, 12000);
-                
+
                 btn.innerText = originalText;
                 btn.disabled = false;
 
@@ -1137,7 +1214,7 @@
                 document.getElementById('r-telefon').value = '';
                 document.getElementById('r-tarih').value = '';
                 document.getElementById('r-saat').value = '';
-                
+
                 document.getElementById('r-tarih').dispatchEvent(new Event('change'));
             }
         })
@@ -1147,7 +1224,7 @@
             errorBanner.style.display = 'flex';
             btn.innerText = originalText;
             btn.disabled = false;
-            
+
             setTimeout(() => {
                 errorBanner.style.display = 'none';
             }, 12000);
@@ -1170,12 +1247,12 @@
 </script>
 
 <script>
-    /* ---- Kopyalama caydırıcıları (hafif, hız etkisi yok, form alanları çalışmaya devam eder) ---- */
+    /* ---- Gelişmiş Kopyalama, Tersine Mühendislik ve Bot Caydırıcıları ---- */
     document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
     document.addEventListener('dragstart', function (e) { e.preventDefault(); });
     document.addEventListener('copy', function (e) {
         const tag = e.target.tagName;
-        if (tag === 'INPUT' || tag === 'TEXTAREA') return; // form alanlarında kopyalamaya izin ver
+        if (tag === 'INPUT' || tag === 'TEXTAREA') return; 
         e.preventDefault();
     });
     document.addEventListener('keydown', function (e) {
@@ -1185,7 +1262,7 @@
         if (e.ctrlKey && (k === 'U' || k === 'S')) { e.preventDefault(); }
     });
 
-    /* Sitenin başka bir sayfada gizli iframe içine gömülmesini engelle */
+    /* Clickjacking (Iframe Korsanlığı) Koruması */
     if (window.top !== window.self) {
         window.top.location = window.self.location;
     }
